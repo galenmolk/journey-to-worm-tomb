@@ -4,17 +4,25 @@ using UnityEngine;
 public class CoyoteTime : MonoBehaviour
 {
     [SerializeField] private float coyoteTimeInSeconds = 0.5f;
+    [SerializeField] private Jump jump = null;
 
-    public bool IsCoyoteTimeActive { get { return isCoyoteTimeActive; } }
-
-    private bool isCoyoteTimeActive;
-    private Coroutine coyoteTimeCoroutine;
     private WaitForSeconds waitForCoyoteTime;
+    private Coroutine coyoteTimeCoroutine;
+    private bool isCoyoteTimeActive;
 
     private void Awake()
     {
         waitForCoyoteTime = new WaitForSeconds(coyoteTimeInSeconds);
         GroundCheck.onDidBecomeGrounded.AddListener(GroundedStateChanged);
+    }
+
+    public void OnJumpInputReceived()
+    {
+        if (!isCoyoteTimeActive)
+            return;
+
+        isCoyoteTimeActive = false;
+        jump.Execute();
     }
 
     private void GroundedStateChanged(bool isGrounded)
@@ -28,12 +36,8 @@ public class CoyoteTime : MonoBehaviour
 
     private IEnumerator StartCoyoteTime()
     {
-        Debug.Log("Starting coyote time");
-
         isCoyoteTimeActive = true;
-
         yield return waitForCoyoteTime;
-
         isCoyoteTimeActive = false;
     }
 }

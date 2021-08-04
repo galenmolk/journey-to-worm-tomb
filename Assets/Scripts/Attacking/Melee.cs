@@ -1,8 +1,22 @@
+using System.Collections;
 using UnityEngine;
 
 public class Melee : Weapon
 {
+    [SerializeField] private float attackDurationInSeconds = 0f;
     [SerializeField] private Collider2D weaponCollider = null;
+
+    private WaitForSeconds attackDuration = null;
+    private WaitForSeconds AttackDuration
+    {
+        get
+        {
+            if (attackDuration == null)
+                attackDuration = new WaitForSeconds(attackDurationInSeconds);
+
+            return attackDuration;
+        }
+    }
 
     private void Awake()
     {
@@ -11,11 +25,30 @@ public class Melee : Weapon
 
     public override void Attack()
     {
+        if (isCoolDownInProgress)
+            return;
+
+        StartCoroutine(AttackWithCoolDown());
+    }
+
+    private IEnumerator AttackWithCoolDown()
+    {
+        StartCoroutine(WeaponColliderPeriod());
+
+        isCoolDownInProgress = true;
+        yield return CoolDown;
+        isCoolDownInProgress = false;
+    }
+
+    private IEnumerator WeaponColliderPeriod()
+    {
         weaponCollider.enabled = true;
+        yield return AttackDuration;
+        weaponCollider.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
+        collision.GetComponent<IDamageable>()?.TakeDamage();
     }
 }

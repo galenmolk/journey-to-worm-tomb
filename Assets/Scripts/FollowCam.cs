@@ -4,24 +4,19 @@ using UnityEngine;
 public class FollowCam : MonoBehaviour
 {
     [SerializeField] private Transform targetTransform = null;
+    [SerializeField] private Vector2 offset = Vector2.zero;
 
-    private Camera cam;
     private float defaultZ;
 
     private void Awake()
     {
-        CacheReferences();
         defaultZ = transform.position.z;
-    }
-
-    private void CacheReferences()
-    {
-        cam = GetComponent<Camera>();
     }
 
     private void Update()
     {
-        Vector3 targetPos = targetTransform.position;
-        transform.position = new Vector3(targetPos.x, targetPos.y, defaultZ);
+        float targetX = targetTransform.position.x;
+        Vector3 newPosition = new Vector3(targetX + offset.x, offset.y, defaultZ);
+        transform.position = newPosition;
     }
 }

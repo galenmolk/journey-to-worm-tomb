@@ -33,14 +33,14 @@ public class Melee : Weapon
 
     private IEnumerator AttackWithCoolDown()
     {
-        StartCoroutine(WeaponColliderPeriod());
+        StartCoroutine(MeleeAttackSequence());
 
         isCoolDownInProgress = true;
         yield return CoolDown;
         isCoolDownInProgress = false;
     }
 
-    private IEnumerator WeaponColliderPeriod()
+    private IEnumerator MeleeAttackSequence()
     {
         weaponCollider.enabled = true;
         yield return AttackDuration;
@@ -49,6 +49,6 @@ public class Melee : Weapon
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<IDamageable>()?.TakeDamage();
+        collision.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
     }
 }

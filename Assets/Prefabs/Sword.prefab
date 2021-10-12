@@ -145,6 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDownTime: 0.5
-  damageAmount: 0
+  damageAmount: 1
   attackDurationInSeconds: 0.1
   weaponCollider: {fileID: 6671021187792336464}

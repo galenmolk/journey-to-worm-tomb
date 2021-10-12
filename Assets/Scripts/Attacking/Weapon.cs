@@ -6,7 +6,7 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] protected int damageAmount = 0;
 
-    protected WaitForSeconds coolDown = null;
+    private WaitForSeconds coolDown = null;
     protected WaitForSeconds CoolDown
     {
         get

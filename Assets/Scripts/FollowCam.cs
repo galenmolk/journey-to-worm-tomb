@@ -1,22 +1,24 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-public class FollowCam : MonoBehaviour
+namespace WormTomb
 {
-    [SerializeField] private Transform targetTransform = null;
-    [SerializeField] private Vector2 offset = Vector2.zero;
-
-    private float defaultZ;
-
-    private void Awake()
+    [RequireComponent(typeof(Camera))]
+    public class FollowCam : MonoBehaviour
     {
-        defaultZ = transform.position.z;
-    }
+        [SerializeField] private Transform targetTransform;
+        [SerializeField] private Vector2 offset = Vector2.zero;
 
-    private void Update()
-    {
-        float targetX = targetTransform.position.x;
-        Vector3 newPosition = new Vector3(targetX + offset.x, offset.y, defaultZ);
-        transform.position = newPosition;
+        private float defaultZ;
+
+        private void Awake()
+        {
+            defaultZ = transform.position.z;
+        }
+
+        private void Update()
+        {
+            var targetX = targetTransform.position.x;
+            transform.position = new Vector3(targetX + offset.x, offset.y, defaultZ);
+        }
     }
 }

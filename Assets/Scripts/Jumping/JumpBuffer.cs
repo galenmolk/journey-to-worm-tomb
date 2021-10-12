@@ -1,42 +1,45 @@
 using System.Collections;
 using UnityEngine;
 
-public class JumpBuffer : MonoBehaviour
+namespace WormTomb
 {
-    [SerializeField] private Jump jump = null;
-    [SerializeField] private float jumpBufferInSeconds = 0.5f;
-
-    private WaitForSeconds waitForJumpBufferSeconds;
-    private Coroutine bufferCoroutine;
-    private bool isWithinBuffer = false;
-
-    private void Awake()
+    public class JumpBuffer : MonoBehaviour
     {
-        waitForJumpBufferSeconds = new WaitForSeconds(jumpBufferInSeconds);
-        GroundCheck.onDidBecomeGrounded.AddListener(GroundedStateChanged);
-    }
+        [SerializeField] private Jump jump = null;
+        [SerializeField] private float jumpBufferInSeconds = 0.5f;
 
-    public void OnJumpInputReceived()
-    {
-        if (bufferCoroutine != null)
-            StopCoroutine(bufferCoroutine);
+        private WaitForSeconds waitForJumpBufferSeconds;
+        private Coroutine bufferCoroutine;
+        private bool isWithinBuffer = false;
 
-        if (GroundCheck.IsGrounded)
-            return;
+        private void Awake()
+        {
+            waitForJumpBufferSeconds = new WaitForSeconds(jumpBufferInSeconds);
+            GroundCheck.onDidBecomeGrounded.AddListener(GroundedStateChanged);
+        }
 
-        bufferCoroutine = StartCoroutine(StartJumpBuffer());
-    }
+        public void OnJumpInputReceived()
+        {
+            if (bufferCoroutine != null)
+                StopCoroutine(bufferCoroutine);
 
-    private void GroundedStateChanged(bool isGrounded)
-    {
-        if (isGrounded && isWithinBuffer)
-            jump.Execute();
-    }
+            if (GroundCheck.IsGrounded)
+                return;
 
-    private IEnumerator StartJumpBuffer()
-    {
-        isWithinBuffer = true;
-        yield return waitForJumpBufferSeconds;
-        isWithinBuffer = false;
-    }
+            bufferCoroutine = StartCoroutine(StartJumpBuffer());
+        }
+
+        private void GroundedStateChanged(bool isGrounded)
+        {
+            // if (isGrounded && isWithinBuffer)
+            //     jump.Execute();
+        }
+
+        private IEnumerator StartJumpBuffer()
+        {
+            isWithinBuffer = true;
+            yield return waitForJumpBufferSeconds;
+            isWithinBuffer = false;
+        }
+    }   
 }

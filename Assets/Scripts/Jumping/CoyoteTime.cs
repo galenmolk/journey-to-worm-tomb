@@ -1,43 +1,46 @@
 using System.Collections;
 using UnityEngine;
 
-public class CoyoteTime : MonoBehaviour
+namespace WormTomb
 {
-    [SerializeField] private float coyoteTimeInSeconds = 0.5f;
-    [SerializeField] private Jump jump = null;
-
-    private WaitForSeconds waitForCoyoteTime;
-    private Coroutine coyoteTimeCoroutine;
-    private bool isCoyoteTimeActive;
-
-    private void Awake()
+    public class CoyoteTime : MonoBehaviour
     {
-        waitForCoyoteTime = new WaitForSeconds(coyoteTimeInSeconds);
-        GroundCheck.onDidBecomeGrounded.AddListener(GroundedStateChanged);
-    }
+        [SerializeField] private float coyoteTimeInSeconds = 0.5f;
+        [SerializeField] private Jump jump = null;
 
-    public void OnJumpInputReceived()
-    {
-        if (!isCoyoteTimeActive)
-            return;
+        private WaitForSeconds waitForCoyoteTime;
+        private Coroutine coyoteTimeCoroutine;
+        private bool isCoyoteTimeActive;
 
-        isCoyoteTimeActive = false;
-        jump.Execute();
-    }
+        private void Awake()
+        {
+            waitForCoyoteTime = new WaitForSeconds(coyoteTimeInSeconds);
+            GroundCheck.onDidBecomeGrounded.AddListener(GroundedStateChanged);
+        }
 
-    private void GroundedStateChanged(bool isGrounded)
-    {
-        if (coyoteTimeCoroutine != null)
-            StopCoroutine(coyoteTimeCoroutine);
+        public void OnJumpInputReceived()
+        {
+            if (!isCoyoteTimeActive)
+                return;
 
-        if (!isGrounded)
-            coyoteTimeCoroutine = StartCoroutine(StartCoyoteTime());
-    }
+            isCoyoteTimeActive = false;
+            // jump.Execute();
+        }
 
-    private IEnumerator StartCoyoteTime()
-    {
-        isCoyoteTimeActive = true;
-        yield return waitForCoyoteTime;
-        isCoyoteTimeActive = false;
+        private void GroundedStateChanged(bool isGrounded)
+        {
+            if (coyoteTimeCoroutine != null)
+                StopCoroutine(coyoteTimeCoroutine);
+
+            if (!isGrounded)
+                coyoteTimeCoroutine = StartCoroutine(StartCoyoteTime());
+        }
+
+        private IEnumerator StartCoyoteTime()
+        {
+            isCoyoteTimeActive = true;
+            yield return waitForCoyoteTime;
+            isCoyoteTimeActive = false;
+        }
     }
 }

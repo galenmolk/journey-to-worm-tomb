@@ -27,7 +27,7 @@ public class Melee : Weapon
     {
         if (isCoolDownInProgress)
             return;
-
+        
         StartCoroutine(AttackWithCoolDown());
     }
 

@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
-    public static bool IsGrounded { get { return isGrounded; } }
-    public static BoolEvent onDidBecomeGrounded = new BoolEvent();
+    public static bool IsGrounded { get; private set; }
 
-    private static bool isGrounded = false;
+    public static readonly BoolEvent onDidBecomeGrounded = new BoolEvent();
+
     private const string GROUND_LAYER = "Ground";
 
     private void Awake()
     {
-        onDidBecomeGrounded.AddListener((grounded) => { isGrounded = grounded; });
+        onDidBecomeGrounded.AddListener((grounded) => { IsGrounded = grounded; });
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

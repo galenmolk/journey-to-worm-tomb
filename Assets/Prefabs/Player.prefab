@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f255ddb6d142479c9f3544d6fab9cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   rb: {fileID: 553114226}
 --- !u!50 &553114226
 Rigidbody2D:
@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 1418448636}
   - component: {fileID: 8027615802380125936}
   - component: {fileID: 983312150520465538}
+  - component: {fileID: 3764199853380762523}
   - component: {fileID: 8027615802380125965}
   - component: {fileID: 2209892473711350059}
   - component: {fileID: 1861594838}
@@ -358,6 +359,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coyoteTimeInSeconds: 0.5
   jump: {fileID: 8027615802380125936}
+--- !u!114 &3764199853380762523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027615802380125941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755c8aed4acd942fabce51f005eb1fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jump: {fileID: 8027615802380125936}
+  jumpBufferInSeconds: 0.5
 --- !u!114 &8027615802380125965
 MonoBehaviour:
   m_ObjectHideFlags: 0

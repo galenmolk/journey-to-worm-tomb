@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99badb19c1cee479b88e07dbbc6d65a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   leftButton: {fileID: 260827283}
   rightButton: {fileID: 413044898}
   jumpButton: {fileID: 1560713193}
@@ -1161,7 +1161,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 2.5807455, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

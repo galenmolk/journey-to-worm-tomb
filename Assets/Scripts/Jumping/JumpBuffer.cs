@@ -5,7 +5,7 @@ namespace WormTomb
 {
     public class JumpBuffer : MonoBehaviour
     {
-        [SerializeField] private readonly Jump jump;
+        [SerializeField] private Jump jump;
         [SerializeField] private float jumpBufferInSeconds = 0.5f;
 
         private WaitForSeconds waitForJumpBufferSeconds;
@@ -19,7 +19,7 @@ namespace WormTomb
 
         private void OnEnable()
         {
-            GroundCheck.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
             PlayerInput.Instance.Jump.AddListener(OnJump);
         }
 

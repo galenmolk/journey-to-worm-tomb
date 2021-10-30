@@ -14,14 +14,12 @@ namespace WormTomb
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Debug.Log("Entered " + gameObject.name);
             IsPressed = true;
             PointerEntered.Invoke(eventData);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Debug.Log("Exited " + gameObject.name);
             IsPressed = false;
             PointerExited.Invoke(eventData);
         }

@@ -19,7 +19,7 @@ namespace WormTomb
 
         private void OnEnable()
         {
-            GroundCheck.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
             PlayerInput.Instance.Jump.AddListener(OnJump);
         }
 

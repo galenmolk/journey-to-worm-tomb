@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GroundCheck : Singleton<GroundCheck>
 {
-    public static readonly BoolEvent GroundStateChanged = new BoolEvent();
+    public readonly BoolEvent GroundStateChanged = new BoolEvent();
 
     private const string GROUND_LAYER = "Ground";
 
@@ -12,8 +12,6 @@ public class GroundCheck : Singleton<GroundCheck>
 
     public bool IsTouchingGround()
     {
-        Debug.Log("IsTouchingGround: " + col2D.IsTouchingLayers(~groundLayerMask));
-
         return col2D.IsTouchingLayers(~groundLayerMask);
     }
 
@@ -29,21 +27,14 @@ public class GroundCheck : Singleton<GroundCheck>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsGround(collision) && !IsTouchingGround())
-        {
-            Debug.Log("Landed");
+        if (IsGround(collision))
             GroundStateChanged?.Invoke(true);
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if ((IsGround(collision) && IsTouchingGround()))
-        {
-            Debug.Log("Left");
-
+        if (IsGround(collision))
             GroundStateChanged?.Invoke(false);
-        }
     }
 
     private bool IsGround(Collision2D collision)

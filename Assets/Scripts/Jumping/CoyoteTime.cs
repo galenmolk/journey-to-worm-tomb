@@ -6,7 +6,7 @@ namespace WormTomb
     public class CoyoteTime : MonoBehaviour
     {
         [SerializeField] private float coyoteTimeInSeconds = 0.5f;
-        [SerializeField] private readonly Jump jump = null;
+        [SerializeField] private Jump jump;
 
         private WaitForSeconds waitForCoyoteTime;
         private Coroutine coyoteTimeCoroutine;

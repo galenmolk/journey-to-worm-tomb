@@ -5,7 +5,7 @@ namespace WormTomb
 {
     public class JumpBuffer : MonoBehaviour
     {
-        [SerializeField] private Jump jump = null;
+        [SerializeField] private readonly Jump jump;
         [SerializeField] private float jumpBufferInSeconds = 0.5f;
 
         private WaitForSeconds waitForJumpBufferSeconds;
@@ -15,24 +15,29 @@ namespace WormTomb
         private void Awake()
         {
             waitForJumpBufferSeconds = new WaitForSeconds(jumpBufferInSeconds);
-            GroundCheck.onDidBecomeGrounded.AddListener(GroundedStateChanged);
         }
 
-        public void OnJumpInputReceived()
+        private void OnEnable()
+        {
+            GroundCheck.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            PlayerInput.Instance.Jump.AddListener(OnJump);
+        }
+
+        public void OnJump()
         {
             if (bufferCoroutine != null)
                 StopCoroutine(bufferCoroutine);
 
-            if (GroundCheck.IsGrounded)
+            if (GroundCheck.Instance.IsTouchingGround())
                 return;
 
             bufferCoroutine = StartCoroutine(StartJumpBuffer());
         }
 
-        private void GroundedStateChanged(bool isGrounded)
+        private void OnGroundedStateChanged(bool isGrounded)
         {
-            // if (isGrounded && isWithinBuffer)
-            //     jump.Execute();
+            if (isWithinBuffer && isGrounded)
+                jump.ExecuteJump();
         }
 
         private IEnumerator StartJumpBuffer()

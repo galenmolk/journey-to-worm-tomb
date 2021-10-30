@@ -6,7 +6,7 @@ namespace WormTomb
     public class CoyoteTime : MonoBehaviour
     {
         [SerializeField] private float coyoteTimeInSeconds = 0.5f;
-        [SerializeField] private Jump jump = null;
+        [SerializeField] private readonly Jump jump = null;
 
         private WaitForSeconds waitForCoyoteTime;
         private Coroutine coyoteTimeCoroutine;
@@ -15,19 +15,24 @@ namespace WormTomb
         private void Awake()
         {
             waitForCoyoteTime = new WaitForSeconds(coyoteTimeInSeconds);
-            GroundCheck.onDidBecomeGrounded.AddListener(GroundedStateChanged);
         }
 
-        public void OnJumpInputReceived()
+        private void OnEnable()
         {
-            if (!isCoyoteTimeActive)
+            GroundCheck.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            PlayerInput.Instance.Jump.AddListener(OnJump);
+        }
+
+        public void OnJump()
+        {
+            if (GroundCheck.Instance.IsTouchingGround() || !isCoyoteTimeActive)
                 return;
 
             isCoyoteTimeActive = false;
-            // jump.Execute();
+            jump.ExecuteJump();
         }
 
-        private void GroundedStateChanged(bool isGrounded)
+        private void OnGroundedStateChanged(bool isGrounded)
         {
             if (coyoteTimeCoroutine != null)
                 StopCoroutine(coyoteTimeCoroutine);

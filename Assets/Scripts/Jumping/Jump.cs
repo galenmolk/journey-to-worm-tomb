@@ -1,27 +1,46 @@
+using System.Collections;
 using UnityEngine;
 
 namespace WormTomb
 {
     public class Jump : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D rb;
         [SerializeField] private float jumpForce;
-        [SerializeField] private float jumpSensitivity;
-    
-        private void Awake()
+
+        public void ExecuteJump()
         {
-            PlayerInput.Instance.onVerticalInput.AddListener(SetJumpVelocity);
+            Debug.Log("Jump.ExecuteJump");
+            PlayerRigidbody.Instance.SetVelocityY(jumpForce);
         }
 
-        private void SetJumpVelocity(float yVelocity)
+        private void OnJump()
         {
-            if (!GroundCheck.IsGrounded)
-                return;
+            Debug.Log("On Jump");
+            StartCoroutine(JumpContinuously());
+        }
 
-            if (yVelocity < jumpSensitivity)
-                yVelocity = 0;
-        
-            rb.velocity = new Vector2(rb.velocity.x, yVelocity * jumpForce);
+        private IEnumerator JumpContinuously()
+        {
+            Debug.Log("JumpContinuously");
+            Debug.Log(PlayerInput.Instance.IsJumpButtonPressed);
+            while (PlayerInput.Instance.IsJumpButtonPressed)
+            {
+                Debug.Log("IsJumpButtonPressed");
+
+                if (GroundCheck.Instance.IsTouchingGround())
+                {
+                    Debug.Log("IsTouchingGround");
+
+                    ExecuteJump();
+                }
+
+                yield return null;
+            }
+        }
+
+        private void OnEnable()
+        {
+            PlayerInput.Instance.Jump.AddListener(OnJump);
         }
     }
 }

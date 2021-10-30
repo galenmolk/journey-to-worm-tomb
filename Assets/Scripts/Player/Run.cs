@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace WormTomb
@@ -15,17 +16,35 @@ namespace WormTomb
 
         private void OnRunningLeft()
         {
-            PlayerRigidbody.Instance.SetVelocityX(-runSpeed);
+            StartCoroutine(RunLeftContinuously());
         }
 
         private void OnRunningRight()
         {
-            PlayerRigidbody.Instance.SetVelocityX(runSpeed);
+            StartCoroutine(RunRightContinuously());
         }
 
         private void OnRunningStop()
         {
             PlayerRigidbody.Instance.SetVelocityX(0f);
+        }
+
+        private IEnumerator RunLeftContinuously()
+        {
+            while (PlayerInput.Instance.IsLeftButtonPressed)
+            {
+                PlayerRigidbody.Instance.SetVelocityX(-runSpeed);
+                yield return null;
+            }
+        }
+
+        private IEnumerator RunRightContinuously()
+        {
+            while (PlayerInput.Instance.IsRightButtonPressed)
+            {
+                PlayerRigidbody.Instance.SetVelocityX(runSpeed);
+                yield return null;
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace WormTomb
@@ -20,6 +21,9 @@ namespace WormTomb
 
         private void SetIsRunning(bool isRunning)
         {
+            if (Math.Abs(PlayerRigidbody.Instance.VelocityX) > 0f)
+                isRunning = true;
+
             animator.speed = isRunning ? 1f : 0f;
         }
     }

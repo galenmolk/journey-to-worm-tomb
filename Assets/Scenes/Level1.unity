@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe42e62f7bd324688a05dd37cfc6a54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
 --- !u!1 &1154602921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,6 +1496,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 983312150520465538, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
+      propertyPath: coyoteTimeInSeconds
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209892473711350059, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
+      propertyPath: runSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764199853380762523, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
+      propertyPath: jumpBufferInSeconds
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8027615802380125940, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
       propertyPath: m_RootOrder
       value: 0

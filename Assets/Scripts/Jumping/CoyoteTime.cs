@@ -37,7 +37,7 @@ namespace WormTomb
             if (coyoteTimeCoroutine != null)
                 StopCoroutine(coyoteTimeCoroutine);
 
-            if (!isGrounded)
+            if (!isGrounded && !PlayerInput.Instance.IsJumpButtonPressed)
                 coyoteTimeCoroutine = StartCoroutine(StartCoyoteTime());
         }
 

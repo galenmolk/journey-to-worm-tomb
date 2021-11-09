@@ -5,18 +5,31 @@ namespace WormTomb
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerRigidbody : Singleton<PlayerRigidbody>
     {
-        [SerializeField] private Rigidbody2D rb;
+        public Vector2Event VelocityChanged = new Vector2Event();
 
         public float VelocityX { get { return rb.velocity.x; } }
 
+        [SerializeField] private Rigidbody2D rb;
+
         public void SetVelocityX(float x)
         {
-            rb.velocity = new Vector2(x, rb.velocity.y);
+            SetVelocity(new Vector2(x, rb.velocity.y));
         }
 
         public void SetVelocityY(float y)
         {
-            rb.velocity = new Vector2(rb.velocity.x, y);
+            SetVelocity(new Vector2(rb.velocity.x, y));
+        }
+
+        private void SetVelocity(Vector2 velocity)
+        {
+            rb.velocity = velocity;
+            VelocityChanged.Invoke(velocity);
+        }
+
+        private void OnDisable()
+        {
+            VelocityChanged.RemoveAllListeners();
         }
     }
 }

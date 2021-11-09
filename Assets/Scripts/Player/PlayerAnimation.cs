@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace WormTomb
@@ -14,17 +13,17 @@ namespace WormTomb
 
         private void OnEnable()
         {
-            PlayerInput.Instance.RunningLeft.AddListener(() => SetIsRunning(true));
-            PlayerInput.Instance.RunningRight.AddListener(() => SetIsRunning(true));
-            PlayerInput.Instance.RunningStop.AddListener(() => SetIsRunning(false));
+            PlayerRigidbody.Instance.VelocityChanged.AddListener(OnVelocityChanged);
         }
 
         private void SetIsRunning(bool isRunning)
         {
-            if (Math.Abs(PlayerRigidbody.Instance.VelocityX) > 0f)
-                isRunning = true;
-
             animator.speed = isRunning ? 1f : 0f;
+        }
+
+        private void OnVelocityChanged(Vector2 velocity)
+        {
+            SetIsRunning(Mathf.Abs(velocity.x) > 0f);
         }
     }
 }

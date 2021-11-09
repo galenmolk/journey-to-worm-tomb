@@ -11,19 +11,22 @@ namespace WormTomb
 
         [SerializeField] private Rigidbody2D rb;
 
-        public void SetVelocityX(float x)
+        public void AddHorizontalForce(float x)
         {
-            SetVelocity(new Vector2(x, rb.velocity.y));
+            Vector2 force = new Vector2(x * Time.deltaTime, 0f);
+            AddForce(force);
         }
 
-        public void SetVelocityY(float y)
+        public void AddVerticalForce(float y)
         {
-            SetVelocity(new Vector2(rb.velocity.x, y));
+            Vector2 force = new Vector2(0f, y * Time.deltaTime);
+
+            AddForce(new Vector2(rb.velocity.x, y));
         }
 
-        private void SetVelocity(Vector2 velocity)
+        private void AddForce(Vector2 velocity)
         {
-            rb.velocity = velocity;
+            rb.AddForce(velocity);
             VelocityChanged.Invoke(velocity);
         }
 

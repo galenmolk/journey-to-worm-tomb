@@ -26,14 +26,14 @@ namespace WormTomb
 
         private void OnRunningStop()
         {
-            PlayerRigidbody.Instance.SetVelocityX(0f);
+            PlayerRigidbody.Instance.AddHorizontalForce(0f);
         }
 
         private IEnumerator RunLeftContinuously()
         {
             while (PlayerInput.Instance.IsLeftButtonPressed)
             {
-                PlayerRigidbody.Instance.SetVelocityX(-runSpeed);
+                PlayerRigidbody.Instance.AddHorizontalForce(-runSpeed);
                 yield return null;
             }
         }
@@ -42,7 +42,7 @@ namespace WormTomb
         {
             while (PlayerInput.Instance.IsRightButtonPressed)
             {
-                PlayerRigidbody.Instance.SetVelocityX(runSpeed);
+                PlayerRigidbody.Instance.AddHorizontalForce(runSpeed);
                 yield return null;
             }
         }

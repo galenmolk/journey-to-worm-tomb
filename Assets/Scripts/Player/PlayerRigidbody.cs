@@ -13,20 +13,17 @@ namespace WormTomb
 
         public void AddHorizontalForce(float x)
         {
-            Vector2 force = new Vector2(x * Time.deltaTime, 0f);
-            AddForce(force);
+            SetVelocity(new Vector2(x, rb.velocity.y));
         }
 
-        public void AddVerticalForce(float y)
+        public void SetVerticalVelocity(float y)
         {
-            Vector2 force = new Vector2(0f, y * Time.deltaTime);
-
-            AddForce(new Vector2(rb.velocity.x, y));
+            SetVelocity(new Vector2(rb.velocity.x, y));
         }
 
-        private void AddForce(Vector2 velocity)
+        private void SetVelocity(Vector2 velocity)
         {
-            rb.AddForce(velocity);
+            rb.velocity = velocity;
             VelocityChanged.Invoke(velocity);
         }
 

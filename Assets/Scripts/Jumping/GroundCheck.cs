@@ -6,18 +6,18 @@ public class GroundCheck : Singleton<GroundCheck>
 
     private const string GROUND_LAYER = "Ground";
 
-    private int groundLayerMask;
+    private int groundLayer;
 
     [SerializeField] private Collider2D col2D;
 
     public bool IsTouchingGround()
     {
-        return col2D.IsTouchingLayers(~groundLayerMask);
+        return col2D.IsTouchingLayers(~groundLayer);
     }
 
     private void Awake()
     {
-        groundLayerMask = LayerMask.NameToLayer(GROUND_LAYER);
+        groundLayer = LayerMask.NameToLayer(GROUND_LAYER);
     }
 
     private void OnDisable()
@@ -39,6 +39,6 @@ public class GroundCheck : Singleton<GroundCheck>
 
     private bool IsGround(Collision2D collision)
     {
-        return collision.gameObject.layer == LayerMask.NameToLayer(GROUND_LAYER);
+        return collision.gameObject.layer == groundLayer;
     }
 }

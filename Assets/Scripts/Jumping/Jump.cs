@@ -9,7 +9,7 @@ namespace WormTomb
 
         public void ExecuteJump()
         {
-            PlayerRigidbody.Instance.SetVerticalVelocity(jumpForce);
+            Player.Instance.RB.SetVerticalVelocity(jumpForce);
         }
 
         private void OnJump()

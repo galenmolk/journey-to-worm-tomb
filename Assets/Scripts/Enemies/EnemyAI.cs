@@ -1,70 +1,75 @@
 using Pathfinding;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+namespace WormTomb
 {
-    [SerializeField] private Seeker seeker;
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Animator animator;
-
-    [SerializeField] private float speed = 200f;
-    [SerializeField] private float nextWaypointDistance = 3f;
-
-    private Path path;
-
-    private int currentWaypoint;
-    private bool hasReachedEndOfPath;
-
-
-    private void Start()
+    public class EnemyAI : MonoBehaviour
     {
-        InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
-    }
+        [SerializeField] private Seeker seeker;
+        [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Animator animator;
 
-    private void UpdatePath()
-    {
-        if (!seeker.IsDone())
-            return;
+        [SerializeField] private RigidbodyController rigidbodyController;
 
-        seeker.StartPath(rb.position, Player.Instance.transform.position, OnPathComplete);
-    }
+        [SerializeField] private float speed = 200f;
+        [SerializeField] private float nextWaypointDistance = 3f;
 
-    private void FixedUpdate()
-    {
-        if (path == null)
-            return;
+        private Path path;
 
-        hasReachedEndOfPath = currentWaypoint >= path.vectorPath.Count;
+        private int currentWaypoint;
+        private bool hasReachedEndOfPath;
 
-        if (hasReachedEndOfPath)
-            return;
+        private void Start()
+        {
+            InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
+        }
 
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
+        private void UpdatePath()
+        {
+            if (!seeker.IsDone())
+                return;
 
-        rb.AddForce(force);
+            seeker.StartPath(rb.position, Player.Instance.transform.position, OnPathComplete);
+        }
 
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        private void FixedUpdate()
+        {
+            if (path == null)
+                return;
 
-        if (distance < nextWaypointDistance)
-            currentWaypoint++;
+            hasReachedEndOfPath = currentWaypoint >= path.vectorPath.Count;
 
-        Vector2 velocity = rb.velocity;
+            if (hasReachedEndOfPath)
+                return;
 
-        bool isMoving = Mathf.Abs(velocity.x) > 0.4f;
-        animator.speed = isMoving ? 1f : 0f;
+            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+            Vector2 force = direction * speed * Time.deltaTime;
 
-        if (isMoving)
-            spriteRenderer.flipX = Mathf.Sign(velocity.x) == -1f;
-    }
+            rb.AddForce(force);
 
-    private void OnPathComplete(Path _path)
-    {
-        if (_path.error)
-            return;
+            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
-        path = _path;
-        currentWaypoint = 0;
+            if (distance < nextWaypointDistance)
+                currentWaypoint++;
+
+            Vector2 velocity = rb.velocity;
+
+            bool isMoving = Mathf.Abs(velocity.x) > 0.4f;
+            animator.speed = isMoving ? 1f : 0f;
+
+            if (isMoving)
+                spriteRenderer.flipX = Mathf.Sign(velocity.x) == -1f;
+        }
+
+        private void OnPathComplete(Path _path)
+        {
+            if (_path.error)
+                return;
+
+
+            path = _path;
+            currentWaypoint = 0;
+        }
     }
 }

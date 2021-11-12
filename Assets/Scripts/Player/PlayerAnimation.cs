@@ -6,14 +6,14 @@ namespace WormTomb
     {
         [SerializeField] private Animator animator;
 
-        private void Awake()
+        private void Start()
         {
             SetIsRunning(false);
         }
 
         private void OnEnable()
         {
-            PlayerRigidbody.Instance.VelocityChanged.AddListener(OnVelocityChanged);
+            Player.Instance.RB.VelocityChanged.AddListener(OnVelocityChanged);
         }
 
         private void SetIsRunning(bool isRunning)

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace WormTomb
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerRigidbody : Singleton<PlayerRigidbody>
+    public class RigidbodyController : MonoBehaviour
     {
         public Vector2Event VelocityChanged = new Vector2Event();
 
@@ -11,7 +11,7 @@ namespace WormTomb
 
         [SerializeField] private Rigidbody2D rb;
 
-        public void AddHorizontalForce(float x)
+        public void SetHorizontalVelocity(float x)
         {
             SetVelocity(new Vector2(x, rb.velocity.y));
         }

@@ -1,13 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using WormTomb;
 
-public class Teleporter : MonoBehaviour
+public class Teleporter : Trigger
 {
     [SerializeField] private Transform destination;
+    [SerializeField] private float delay;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void TriggerEntered()
     {
-              
+        StartCoroutine(Teleport());
+    }
+
+    private IEnumerator Teleport()
+    {
+        yield return YieldRegistry.Wait(delay);
+        Player.Instance.transform.position = destination.position;
     }
 }

@@ -9,6 +9,8 @@ namespace WormTomb
 
         public float VelocityX { get { return rb.velocity.x; } }
 
+        public Vector2 Position { get { return rb.position; } }
+
         [SerializeField] private Rigidbody2D rb;
 
         public void SetHorizontalVelocity(float x)

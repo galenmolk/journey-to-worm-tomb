@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.Events;
 
 namespace WormTomb
 {
     public class DetectPlayer : Trigger
     {
+        public UnityEvent PlayerDetected = new UnityEvent();
+
         protected override void TriggerEntered()
         {
-            throw new System.NotImplementedException();
+            PlayerDetected.Invoke();
         }
     }
 }

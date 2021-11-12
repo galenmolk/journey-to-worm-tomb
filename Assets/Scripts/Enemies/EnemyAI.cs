@@ -6,11 +6,11 @@ namespace WormTomb
     public class EnemyAI : MonoBehaviour
     {
         [SerializeField] private Seeker seeker;
-        [SerializeField] private Rigidbody2D rb;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Animator animator;
 
         [SerializeField] private RigidbodyController rigidbodyController;
+        [SerializeField] private DetectPlayer detectPlayer;
 
         [SerializeField] private float speed = 200f;
         [SerializeField] private float nextWaypointDistance = 3f;
@@ -20,17 +20,15 @@ namespace WormTomb
         private int currentWaypoint;
         private bool hasReachedEndOfPath;
 
-        private void Start()
+        private void Awake()
         {
-            InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
+            detectPlayer.PlayerDetected.AddListener(OnPlayerDetected);
+            animator.speed = 0f;
         }
 
-        private void UpdatePath()
+        private void OnPlayerDetected()
         {
-            if (!seeker.IsDone())
-                return;
-
-            seeker.StartPath(rb.position, Player.Instance.transform.position, OnPathComplete);
+            SeekerManager.StartSeeking(seeker, rigidbodyController, Player.Instance.transform, OnPathComplete, 0.5f);
         }
 
         private void FixedUpdate()
@@ -43,30 +41,31 @@ namespace WormTomb
             if (hasReachedEndOfPath)
                 return;
 
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
+            Vector2 position = rigidbodyController.Position;
+            Vector2 waypointPosition = path.vectorPath[currentWaypoint];
 
-            rb.AddForce(force);
+            int directionSign = (position.x < waypointPosition.x).ToSign();
 
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            rigidbodyController.SetHorizontalVelocity(speed * directionSign);
+
+            float distance = Vector2.Distance(position, waypointPosition);
 
             if (distance < nextWaypointDistance)
                 currentWaypoint++;
 
-            Vector2 velocity = rb.velocity;
+            float velocityX = rigidbodyController.VelocityX;
 
-            bool isMoving = Mathf.Abs(velocity.x) > 0.4f;
-            animator.speed = isMoving ? 1f : 0f;
+            bool isMoving = Mathf.Abs(velocityX) > 0.1f;
+            animator.speed = isMoving.ToInt();
 
             if (isMoving)
-                spriteRenderer.flipX = Mathf.Sign(velocity.x) == -1f;
+                spriteRenderer.flipX = Mathf.Sign(velocityX) == -1f;
         }
 
         private void OnPathComplete(Path _path)
         {
             if (_path.error)
                 return;
-
 
             path = _path;
             currentWaypoint = 0;

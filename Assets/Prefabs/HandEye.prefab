@@ -55,7 +55,7 @@ MonoBehaviour:
   animator: {fileID: 2786097422692717267}
   rigidbodyController: {fileID: 2786097422692717266}
   detectPlayer: {fileID: 2786097422716915727}
-  speed: 4
+  speed: 3.75
   nextWaypointDistance: 3
 --- !u!114 &2786097422692717266
 MonoBehaviour:
@@ -151,9 +151,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.104546666}
+  m_Offset: {x: 0, y: 0.1674028}
   serializedVersion: 2
-  m_Radius: 0.9739449
+  m_Radius: 0.70199543
 --- !u!1 &2786097422716915724
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 9.22
 --- !u!1 &2786097423671057398
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,10 +289,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1585775797
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 2582340365222197817, guid: 8cd2c582877d84aefa2d192dbeeebe87, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.50912386, g: 0.7830189, b: 0.36565503, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0

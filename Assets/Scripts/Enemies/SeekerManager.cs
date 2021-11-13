@@ -24,8 +24,8 @@ namespace WormTomb
             bool isSeekerActive = seekerPropertyRegistry.TryGetValue(seeker, out SeekerProperties properties);
 
             if (isSeekerActive)
-                seeker.StopCoroutine(properties.seekerCoroutine);
-            
+                return;
+
             properties = new SeekerProperties()
             {
                 rb = _rb,
@@ -38,7 +38,16 @@ namespace WormTomb
             if (!isSeekerActive)
                 seekerPropertyRegistry.Add(seeker, properties);
 
-            seeker.StartCoroutine(UpdatePath(seeker, properties));
+            properties.seekerCoroutine = seeker.StartCoroutine(UpdatePath(seeker, properties));
+        }
+
+        public static void StopSeeking(Seeker seeker)
+        {
+            if (!seekerPropertyRegistry.ContainsKey(seeker))
+                return;
+
+            seeker.StopCoroutine(seekerPropertyRegistry[seeker].seekerCoroutine);
+            seekerPropertyRegistry.Remove(seeker);
         }
 
         private static IEnumerator UpdatePath(Seeker seeker, SeekerProperties properties)

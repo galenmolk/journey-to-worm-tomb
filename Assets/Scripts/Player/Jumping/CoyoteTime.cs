@@ -1,0 +1,45 @@
+using System.Collections;
+using UnityEngine;
+
+namespace WormTomb
+{
+    public class CoyoteTime : MonoBehaviour
+    {
+        [SerializeField] private float coyoteTimeInSeconds = 0.5f;
+        [SerializeField] private Jump jump;
+
+        private Coroutine coyoteTimeCoroutine;
+        private bool isCoyoteTimeActive;
+
+        private void OnEnable()
+        {
+            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            PlayerInput.Instance.Jump.AddListener(OnJump);
+        }
+
+        public void OnJump()
+        {
+            if (GroundCheck.Instance.IsTouchingGround() || !isCoyoteTimeActive)
+                return;
+
+            isCoyoteTimeActive = false;
+            jump.ExecuteJump();
+        }
+
+        private void OnGroundedStateChanged(bool isGrounded)
+        {
+            if (coyoteTimeCoroutine != null)
+                StopCoroutine(coyoteTimeCoroutine);
+
+            if (!isGrounded && !PlayerInput.Instance.IsJumpButtonPressed)
+                coyoteTimeCoroutine = StartCoroutine(StartCoyoteTime());
+        }
+
+        private IEnumerator StartCoyoteTime()
+        {
+            isCoyoteTimeActive = true;
+            yield return YieldRegistry.Wait(coyoteTimeInSeconds);
+            isCoyoteTimeActive = false;
+        }
+    }
+}

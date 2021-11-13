@@ -7,23 +7,23 @@ namespace WormTomb
     {
         [SerializeField] private bool disableOnPlayerEnter = false;
 
-        [SerializeField] private Collider2D collider2D;
+        [SerializeField] private Collider2D coll;
 
         private void Awake()
         {
-            if (collider2D == null)
+            if (coll == null)
             {
                 Debug.LogWarning($"Trigger.Awake on {gameObject.name}: collider2D not assigned in inspector.");
-                collider2D = GetComponent<Collider2D>();
+                coll = GetComponent<Collider2D>();
             }
 
-            if (collider2D == null)
+            if (coll == null)
             {
                 Debug.LogError($"Trigger.Awake on {gameObject.name}: no Collider2D component found on GameObject!");
                 return;
             }
 
-            collider2D.isTrigger = true;
+            coll.isTrigger = true;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -34,7 +34,7 @@ namespace WormTomb
             TriggerEntered();
 
             if (disableOnPlayerEnter)
-                collider2D.enabled = false;
+                coll.enabled = false;
         }
 
         protected abstract void TriggerEntered();

@@ -28,6 +28,8 @@ namespace WormTomb
 
         private void OnPlayerDetected()
         {
+            Debug.Log("OnPlayerDetected");
+
             SeekerManager.StartSeeking(seeker, rigidbodyController, Player.Instance.transform, OnPathComplete, 0.5f);
         }
 

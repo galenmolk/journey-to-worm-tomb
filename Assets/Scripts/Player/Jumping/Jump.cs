@@ -11,9 +11,6 @@ namespace WormTomb
 
         public void ExecuteJump()
         {
-            if (IsJumping)
-                return;
-
             IsJumping = true;
             Player.Instance.RB.SetVerticalVelocity(jumpForce);
         }

@@ -11,6 +11,8 @@ namespace WormTomb
 
         private void Awake()
         {
+            HideEditorGraphics();
+
             if (coll == null)
             {
                 Debug.LogWarning($"Trigger.Awake on {gameObject.name}: collider2D not assigned in inspector.");
@@ -24,6 +26,14 @@ namespace WormTomb
             }
 
             coll.isTrigger = true;
+        }
+
+        private void HideEditorGraphics()
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+            if (spriteRenderer != null)
+                spriteRenderer.enabled = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

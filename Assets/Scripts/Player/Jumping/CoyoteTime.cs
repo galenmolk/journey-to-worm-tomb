@@ -19,7 +19,7 @@ namespace WormTomb
 
         public void OnJump()
         {
-            if (GroundCheck.Instance.IsTouchingGround() || !isCoyoteTimeActive)
+            if (jump.IsJumping || GroundCheck.Instance.IsTouchingGround() || !isCoyoteTimeActive)
                 return;
 
             isCoyoteTimeActive = false;

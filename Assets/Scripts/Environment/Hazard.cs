@@ -6,6 +6,7 @@ public class Hazard : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.gameObject.name);
         collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
     }
 }

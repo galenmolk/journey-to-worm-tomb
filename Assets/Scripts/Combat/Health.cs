@@ -5,7 +5,7 @@ public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] private int startingHealth = 0;
 
-    [HideInInspector] public UnityEvent onDie = new UnityEvent();
+    public UnityEvent onDie = new UnityEvent();
 
     public int CurrentHealth { get; private set; }
 

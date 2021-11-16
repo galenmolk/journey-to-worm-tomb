@@ -5,13 +5,15 @@ namespace WormTomb
     [RequireComponent(typeof(Collider2D))]
     public abstract class Trigger : MonoBehaviour
     {
-        [SerializeField] private bool disableOnPlayerEnter = false;
+        [SerializeField] protected bool allowMultipleTriggers = false;
+        [SerializeField] private bool hideGraphics = true;
 
         [SerializeField] private Collider2D coll;
 
         private void Awake()
         {
-            HideEditorGraphics();
+            if (hideGraphics)
+                HideEditorGraphics();
 
             if (coll == null)
             {
@@ -41,10 +43,10 @@ namespace WormTomb
             if (collision.gameObject.layer != Player.Instance.PlayerLayer)
                 return;
 
-            TriggerEntered();
-
-            if (disableOnPlayerEnter)
+            if (!allowMultipleTriggers)
                 coll.enabled = false;
+
+            TriggerEntered();
         }
 
         protected abstract void TriggerEntered();

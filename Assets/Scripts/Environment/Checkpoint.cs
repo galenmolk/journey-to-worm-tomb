@@ -1,14 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace WormTomb
 {
     public class Checkpoint : Trigger
     {
+        public static Checkpoint CurrentCheckpoint { get; private set; }
+
         protected override void TriggerEntered()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Current Checkpoint: " + gameObject.name);
+            CurrentCheckpoint = this;
+        }
+
+        private void Start()
+        {
+            allowMultipleTriggers = false;
         }
     }
 }

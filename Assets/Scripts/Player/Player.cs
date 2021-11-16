@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace WormTomb
 {
     public class Player : Singleton<Player>
     {
         private const string PLAYER_LAYER_NAME = "Player";
+
+        public UnityEvent OnDie = new UnityEvent();
 
         public int PlayerLayer { get { return playerLayer; } }
 

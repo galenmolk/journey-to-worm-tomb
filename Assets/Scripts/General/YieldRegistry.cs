@@ -3,6 +3,19 @@ using UnityEngine;
 
 public static class YieldRegistry
 {
+    public static WaitForEndOfFrame EndOfFrame
+    {
+        get
+        {
+            if (endOfFrame == null)
+                endOfFrame = new WaitForEndOfFrame();
+
+            return endOfFrame;
+        }
+    }
+
+    private static WaitForEndOfFrame endOfFrame;
+
     private static readonly Dictionary<float, WaitForSeconds> yieldRegistry = new Dictionary<float, WaitForSeconds>();
 
     public static WaitForSeconds Wait(float seconds)

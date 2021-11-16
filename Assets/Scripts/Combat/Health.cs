@@ -1,38 +1,39 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Health : MonoBehaviour, IDamageable
+namespace WormTomb
 {
-    [SerializeField] private int startingHealth = 0;
-
-    public UnityEvent onDie = new UnityEvent();
-
-    public int CurrentHealth { get; private set; }
-
-    private void Awake()
+    public class Health : MonoBehaviour, IDamageable
     {
-        CurrentHealth = startingHealth;
-    }
+        [SerializeField] private int startingHealth = 0;
 
-    public void TakeDamage(int amount)
-    {
-        if (CurrentHealth <= 0)
-            return;
+        public int CurrentHealth { get; private set; }
 
-        CurrentHealth -= amount;
+        private void Awake()
+        {
+            CurrentHealth = startingHealth;
+        }
 
-        if (CurrentHealth <= 0)
-            Die();
-    }
+        public void TakeDamage(int amount)
+        {
+            if (CurrentHealth <= 0)
+                return;
 
-    public void Die()
-    {
-        Debug.Log(gameObject.name + ": Health.Die called!");
-        onDie?.Invoke();
-    }
+            CurrentHealth -= amount;
 
-    private void OnDisable()
-    {
-        onDie.RemoveAllListeners();
+            if (CurrentHealth <= 0)
+                Die();
+        }
+
+        public void Die()
+        {
+            Debug.Log(gameObject.name + ": Health.Die called!");
+            Player.Instance.OnDie.Invoke();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+                Die();
+        }
     }
 }

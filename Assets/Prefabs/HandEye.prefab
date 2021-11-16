@@ -198,8 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570e36640a32247c1ad705065c0a3f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableOnPlayerEnter: 1
-  collider2D: {fileID: 0}
+  allowMultipleTriggers: 0
+  coll: {fileID: 0}
   PlayerDetected:
     m_PersistentCalls:
       m_Calls: []
@@ -290,7 +290,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1585775797
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 2582340365222197817, guid: 8cd2c582877d84aefa2d192dbeeebe87, type: 3}
   m_Color: {r: 0.50912386, g: 0.7830189, b: 0.36565503, a: 1}
   m_FlipX: 1

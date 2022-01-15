@@ -14,7 +14,7 @@ public class Teleporter : Trigger
 
     private IEnumerator Teleport()
     {
-        yield return YieldRegistry.Wait(delay);
+        yield return YieldRegistry.WaitForSeconds(delay);
         Player.Instance.transform.position = destination.position;
     }
 }

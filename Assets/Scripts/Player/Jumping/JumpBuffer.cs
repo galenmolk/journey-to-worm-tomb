@@ -40,7 +40,7 @@ namespace WormTomb
         private IEnumerator StartJumpBuffer()
         {
             isWithinBuffer = true;
-            yield return YieldRegistry.Wait(jumpBufferInSeconds);
+            yield return YieldRegistry.WaitForSeconds(jumpBufferInSeconds);
             isWithinBuffer = false;
         }
     }   

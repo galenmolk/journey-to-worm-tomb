@@ -38,7 +38,7 @@ namespace WormTomb
         private IEnumerator StartCoyoteTime()
         {
             isCoyoteTimeActive = true;
-            yield return YieldRegistry.Wait(coyoteTimeInSeconds);
+            yield return YieldRegistry.WaitForSeconds(coyoteTimeInSeconds);
             isCoyoteTimeActive = false;
         }
     }

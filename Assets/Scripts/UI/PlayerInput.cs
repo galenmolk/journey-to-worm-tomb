@@ -38,10 +38,12 @@ namespace WormTomb
         [NonSerialized] public UnityEvent RunningRight = new UnityEvent();
         [NonSerialized] public UnityEvent RunningStop = new UnityEvent();
         [NonSerialized] public UnityEvent Jump = new UnityEvent();
+        [NonSerialized] public UnityEvent Attack = new UnityEvent();
 
         [SerializeField] private CustomButton leftButton;
         [SerializeField] private CustomButton rightButton;
         [SerializeField] private CustomButton jumpButton;
+        [SerializeField] private CustomButton attackButton;
 
         private void Awake()
         {
@@ -52,6 +54,8 @@ namespace WormTomb
             rightButton.PointerExited.AddListener(OnRunButtonExited);
 
             jumpButton.PointerEntered.AddListener(OnJumpButtonEntered);
+            
+            attackButton.PointerEntered.AddListener(OnAttackButtonEntered);
         }
 
         private void OnLeftButtonEntered(PointerEventData eventData)
@@ -72,6 +76,11 @@ namespace WormTomb
         private void OnJumpButtonEntered(PointerEventData eventData)
         {
             Jump.Invoke();
+        }
+
+        private void OnAttackButtonEntered(PointerEventData eventData)
+        {
+            Attack.Invoke();
         }
 
         private void OnDestroy()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using WormTomb;
 
 public class Attack : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class Attack : MonoBehaviour
     private void Awake()
     {
         equippedWeapon = Instantiate(equippedWeaponPrefab, transform);
+        PlayerInput.Instance.Attack.AddListener(InitiateAttack);
     }
 
-    public void OnAttackInputReceived()
+    private void InitiateAttack()
     {
         equippedWeapon.Attack();
+
     }
 }

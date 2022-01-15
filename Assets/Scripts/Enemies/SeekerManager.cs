@@ -57,7 +57,7 @@ namespace WormTomb
                 if (seeker.IsDone())
                     seeker.StartPath(properties.rb.Position, properties.target.position, properties.onPathDelegate);
 
-                yield return YieldRegistry.Wait(properties.repeatRate);
+                yield return YieldRegistry.WaitForSeconds(properties.repeatRate);
             }
         }
     }

@@ -1,21 +1,35 @@
+using System.Collections;
 using UnityEngine;
 using WormTomb;
 
 public class Attack : MonoBehaviour
 {
-    [SerializeField] private Weapon equippedWeaponPrefab = null;
-
+    [SerializeField] private Weapon equippedWeaponPrefab;
+    [SerializeField] private Transform weaponParent;
+    
     private Weapon equippedWeapon;
 
     private void Awake()
     {
-        equippedWeapon = Instantiate(equippedWeaponPrefab, transform);
-        PlayerInput.Instance.Attack.AddListener(InitiateAttack);
+        equippedWeapon = Instantiate(equippedWeaponPrefab, weaponParent);
     }
 
     private void InitiateAttack()
     {
-        equippedWeapon.Attack();
+        StartCoroutine(AttackContinuously());
+    }
 
+    private IEnumerator AttackContinuously()
+    {
+        while (PlayerInput.Instance.IsAttackButtonPressed)
+        {
+            equippedWeapon.TryAttack();
+            yield return null;
+        }
+    }
+
+    private void OnEnable()
+    {
+        PlayerInput.Instance.Attack.AddListener(InitiateAttack);
     }
 }

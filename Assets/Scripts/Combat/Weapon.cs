@@ -2,11 +2,13 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    [SerializeField] protected float coolDownTime = 0.5f;
+    [SerializeField] protected float cooldownDuration;
+    [SerializeField] protected float attackDuration;
 
-    [SerializeField] protected int damageAmount = 0;
+    [SerializeField] protected int damageAmount;
 
-    protected bool isCoolDownInProgress = false;
+    protected bool isCoolDownInProgress;
+    protected bool isAttackInProgress;
 
-    public abstract void Attack();
+    public abstract void TryAttack();
 }

@@ -7,19 +7,17 @@ namespace WormTomb
     {
         private const string PLAYER_LAYER_NAME = "Player";
 
-        public UnityEvent OnDie = new UnityEvent();
+        public UnityEvent OnDie = new();
 
-        public int PlayerLayer { get { return playerLayer; } }
+        public int PlayerLayer { get; private set; }
 
-        public RigidbodyController RB { get { return rigidbodyController; } }
+        public RigidbodyController RB => rigidbodyController;
 
         [SerializeField] private RigidbodyController rigidbodyController;
 
-        private int playerLayer;
-
         private void Awake()
         {
-            playerLayer = LayerMask.NameToLayer(PLAYER_LAYER_NAME);
+            PlayerLayer = LayerMask.NameToLayer(PLAYER_LAYER_NAME);
         }
     }
 }

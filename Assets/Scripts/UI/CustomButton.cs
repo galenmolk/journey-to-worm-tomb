@@ -7,8 +7,8 @@ namespace WormTomb
     [RequireComponent(typeof(Image))]
     public class CustomButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        public readonly PointerEvent PointerEntered = new PointerEvent();
-        public readonly PointerEvent PointerExited = new PointerEvent();
+        public readonly PointerEvent PointerEntered = new();
+        public readonly PointerEvent PointerExited = new();
 
         public bool IsPressed { get; private set; }
 

@@ -7,32 +7,17 @@ namespace WormTomb
 {
     public class PlayerInput : Singleton<PlayerInput>
     {
-        public bool IsJumpButtonPressed
-        {
-            get
-            {
-                // TODO Remove Input condition for release.
-                return jumpButton.IsPressed || Input.GetKey(KeyCode.Space);
-            }
-        }
+        // TODO Remove Input condition for release.
+        public bool IsJumpButtonPressed => jumpButton.IsPressed || Input.GetKey(KeyCode.Space);
+        
+        // TODO Remove Input condition for release.
+        public bool IsAttackButtonPressed => attackButton.IsPressed || Input.GetMouseButton(0);
 
-        public bool IsLeftButtonPressed
-        {
-            get
-            {
-                // TODO Remove Input condition for release.
-                return leftButton.IsPressed || Input.GetKey(KeyCode.A);
-            }
-        }
+        // TODO Remove Input condition for release.
+        public bool IsLeftButtonPressed => leftButton.IsPressed || Input.GetKey(KeyCode.A);
 
-        public bool IsRightButtonPressed
-        {
-            get
-            {
-                // TODO Remove Input condition for release.
-                return rightButton.IsPressed || Input.GetKey(KeyCode.D);
-            }
-        }
+        // TODO Remove Input condition for release.
+        public bool IsRightButtonPressed => rightButton.IsPressed || Input.GetKey(KeyCode.D);
 
         [NonSerialized] public UnityEvent RunningLeft = new UnityEvent();
         [NonSerialized] public UnityEvent RunningRight = new UnityEvent();

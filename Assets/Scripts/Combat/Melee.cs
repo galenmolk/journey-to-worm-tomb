@@ -1,43 +1,50 @@
 using System.Collections;
 using UnityEngine;
 
-public class Melee : Weapon
+namespace WormTomb
 {
-    [SerializeField] private float attackDurationInSeconds = 0f;
-    [SerializeField] private Collider2D weaponCollider = null;
-
-    public override void Attack()
+    public class Melee : Weapon
     {
-        if (isCoolDownInProgress)
-            return;
-        Debug.Log("attacking with melee weapon");
+        [SerializeField] private Collider2D weaponCollider;
 
-        StartCoroutine(AttackWithCoolDown());
-    }
+        public override void TryAttack()
+        {
+            if (isCoolDownInProgress || isAttackInProgress)
+                return;
+        
+            Debug.Log("attacking with melee weapon");
+            isCoolDownInProgress = true;
+            StartCoroutine(AttackWithCoolDown());
+        }
     
-    private void Awake()
-    {
-        weaponCollider.enabled = false;
-    }
+        private void Awake()
+        {
+            weaponCollider.enabled = false;
+        }
 
-    private IEnumerator AttackWithCoolDown()
-    {
-        StartCoroutine(MeleeAttackSequence());
+        private IEnumerator AttackWithCoolDown()
+        {
+            StartCoroutine(MeleeAttackSequence());
+            yield return YieldRegistry.WaitForSeconds(cooldownDuration);
+            isCoolDownInProgress = false;
+        }
 
-        isCoolDownInProgress = true;
-        yield return YieldRegistry.WaitForSeconds(coolDownTime);
-        isCoolDownInProgress = false;
-    }
+        private IEnumerator MeleeAttackSequence()
+        {
+            isAttackInProgress = true;
+            weaponCollider.enabled = true;
+            yield return YieldRegistry.WaitForSeconds(attackDuration);
+            weaponCollider.enabled = false;
+            isAttackInProgress = true;
+        }
 
-    private IEnumerator MeleeAttackSequence()
-    {
-        weaponCollider.enabled = true;
-        yield return YieldRegistry.WaitForSeconds(attackDurationInSeconds);
-        weaponCollider.enabled = false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        collision.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.layer == Player.Instance.PlayerLayer)
+                return;
+        
+            collision.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
+        }
     }
 }
+

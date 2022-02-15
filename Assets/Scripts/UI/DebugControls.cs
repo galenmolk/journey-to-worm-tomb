@@ -8,6 +8,7 @@ namespace WormTomb
         {
             Run();
             Jump();
+            Attack();
         }
 
         private void Run()
@@ -26,6 +27,16 @@ namespace WormTomb
         {
             if (Input.GetKeyDown(KeyCode.Space))
                 PlayerInput.Instance.Jump.Invoke();
+        }
+
+        private void Attack()
+        {
+            Debug.Log("Attack?");
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Debug.Log("K");
+                PlayerInput.Instance.Attack.Invoke();
+            }
         }
     }
 }

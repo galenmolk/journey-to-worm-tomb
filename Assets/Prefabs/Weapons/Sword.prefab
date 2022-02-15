@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6671021187792336467}
   - component: {fileID: -7755682413723423523}
   - component: {fileID: 7042405443318094490}
-  - component: {fileID: 4615239633625258093}
+  - component: {fileID: 7335621165942848657}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -145,7 +145,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -161,7 +161,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &4615239633625258093
+--- !u!50 &7335621165942848657
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

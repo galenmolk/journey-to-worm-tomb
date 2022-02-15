@@ -7,23 +7,21 @@ namespace WormTomb
     {
         [SerializeField] private Collider2D weaponCollider;
 
-        public override void TryAttack()
+        public override bool CanAttack()
         {
-            if (isCoolDownInProgress || isAttackInProgress)
-                return;
-        
-            Debug.Log("attacking with melee weapon");
-            isCoolDownInProgress = true;
-            StartCoroutine(AttackWithCoolDown());
+            return !isCoolDownInProgress && !weaponCollider.enabled;
         }
-    
-        private void Awake()
+
+        public override int DamageAmount => damageAmount;
+
+        public override void AttackWithWeapon()
         {
-            weaponCollider.enabled = false;
+            StartCoroutine(AttackWithCoolDown());
         }
 
         private IEnumerator AttackWithCoolDown()
         {
+            isCoolDownInProgress = true;
             StartCoroutine(MeleeAttackSequence());
             yield return YieldRegistry.WaitForSeconds(cooldownDuration);
             isCoolDownInProgress = false;
@@ -31,20 +29,22 @@ namespace WormTomb
 
         private IEnumerator MeleeAttackSequence()
         {
-            isAttackInProgress = true;
             weaponCollider.enabled = true;
             yield return YieldRegistry.WaitForSeconds(attackDuration);
             weaponCollider.enabled = false;
-            isAttackInProgress = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        // private void OnCollisionEnter2D(Collision2D col)
+        // {
+        //     if (col.gameObject.layer == Player.Instance.PlayerLayer)
+        //         return;
+        //
+        //     col.gameObject.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
+        // }
+
+        private void Awake()
         {
-            if (collision.gameObject.layer == Player.Instance.PlayerLayer)
-                return;
-        
-            collision.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
+            weaponCollider.enabled = false;
         }
     }
 }
-

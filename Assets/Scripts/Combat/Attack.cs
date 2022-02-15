@@ -14,22 +14,14 @@ public class Attack : MonoBehaviour
         equippedWeapon = Instantiate(equippedWeaponPrefab, weaponParent);
     }
 
-    private void InitiateAttack()
+    private void TryAttack()
     {
-        StartCoroutine(AttackContinuously());
-    }
-
-    private IEnumerator AttackContinuously()
-    {
-        while (PlayerInput.Instance.IsAttackButtonPressed)
-        {
-            equippedWeapon.TryAttack();
-            yield return null;
-        }
+        if (equippedWeapon.CanAttack())
+            equippedWeapon.AttackWithWeapon();
     }
 
     private void OnEnable()
     {
-        PlayerInput.Instance.Attack.AddListener(InitiateAttack);
+        PlayerInput.Instance.Attack.AddListener(TryAttack);
     }
 }

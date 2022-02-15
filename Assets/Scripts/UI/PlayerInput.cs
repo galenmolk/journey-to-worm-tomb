@@ -19,11 +19,11 @@ namespace WormTomb
         // TODO Remove Input condition for release.
         public bool IsRightButtonPressed => rightButton.IsPressed || Input.GetKey(KeyCode.D);
 
-        [NonSerialized] public UnityEvent RunningLeft = new UnityEvent();
-        [NonSerialized] public UnityEvent RunningRight = new UnityEvent();
-        [NonSerialized] public UnityEvent RunningStop = new UnityEvent();
-        [NonSerialized] public UnityEvent Jump = new UnityEvent();
-        [NonSerialized] public UnityEvent Attack = new UnityEvent();
+        [NonSerialized] public readonly UnityEvent RunningLeft = new();
+        [NonSerialized] public readonly UnityEvent RunningRight = new();
+        [NonSerialized] public readonly UnityEvent RunningStop = new();
+        [NonSerialized] public readonly UnityEvent Jump = new();
+        [NonSerialized] public readonly UnityEvent Attack = new();
 
         [SerializeField] private CustomButton leftButton;
         [SerializeField] private CustomButton rightButton;
@@ -73,6 +73,7 @@ namespace WormTomb
             RunningLeft.RemoveAllListeners();
             RunningRight.RemoveAllListeners();
             RunningStop.RemoveAllListeners();
+            Attack.RemoveAllListeners();
             Jump.RemoveAllListeners();
         }
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6547618596154084558}
   - component: {fileID: 2604565282849556981}
   - component: {fileID: 3182979911670123660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3581314683335264755}
   - component: {fileID: 3525534549458761793}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8027615802228076974}
   - component: {fileID: 8027615802228076973}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,11 +181,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1585775797
-  m_SortingLayer: 5
+  m_SortingLayerID: -1041796957
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2865487854195701333, guid: 698104261e093425084fc753747c9829, type: 3}
-  m_Color: {r: 0.5943396, g: 0.5915361, b: 0.5915361, a: 1}
+  m_Color: {r: 0, g: 0.73562217, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
@@ -257,9 +257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 0
-  OnDie:
-    m_PersistentCalls:
-      m_Calls: []
   rigidbodyController: {fileID: 2647944556171861231}
 --- !u!114 &6782073241125346621
 MonoBehaviour:
@@ -286,6 +283,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989e4b4b429c9443a80d17b86c854306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6782073241125346621}
+        m_TargetAssemblyTypeName: WormTomb.Respawn, Assembly-CSharp
+        m_MethodName: GoToSpawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   startingHealth: 1
 --- !u!114 &8027615802380125936
 MonoBehaviour:
@@ -367,7 +379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4237779d83d374d63bfb49e4f4ff94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 8027615802228076973}
 --- !u!114 &7985404929020397764
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,6 +23,11 @@ namespace WormTomb
             SetVelocity(new Vector2(rb.velocity.x, y));
         }
 
+        public void MoveTo(Vector2 position)
+        {
+            rb.MovePosition(position);
+        }
+
         private void SetVelocity(Vector2 velocity)
         {
             rb.velocity = velocity;

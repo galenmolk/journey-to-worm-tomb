@@ -5,11 +5,11 @@ namespace WormTomb
 {
     public class Melee : Weapon
     {
-        [SerializeField] private Collider2D weaponCollider;
-
+        private IDamageable activeTarget;
+        
         public override bool CanAttack()
         {
-            return !isCoolDownInProgress && !weaponCollider.enabled;
+            return !isCoolDownInProgress;
         }
 
         public override int DamageAmount => damageAmount;
@@ -22,29 +22,44 @@ namespace WormTomb
         private IEnumerator AttackWithCoolDown()
         {
             isCoolDownInProgress = true;
-            StartCoroutine(MeleeAttackSequence());
+            TryDealDamage();
             yield return YieldRegistry.WaitForSeconds(cooldownDuration);
             isCoolDownInProgress = false;
         }
 
-        private IEnumerator MeleeAttackSequence()
+        private void TryDealDamage()
         {
-            weaponCollider.enabled = true;
-            yield return YieldRegistry.WaitForSeconds(attackDuration);
-            weaponCollider.enabled = false;
+            if (activeTarget == null)
+                return;
+            
+            activeTarget.TakeDamage(damageAmount);
         }
 
-        // private void OnCollisionEnter2D(Collision2D col)
-        // {
-        //     if (col.gameObject.layer == Player.Instance.PlayerLayer)
-        //         return;
-        //
-        //     col.gameObject.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
-        // }
-
-        private void Awake()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            weaponCollider.enabled = false;
+            if (other.gameObject.layer == Player.Instance.PlayerLayer)
+                return;
+            
+            if (!other.TryGetComponent(out IDamageable damageable))
+                return;
+
+            Debug.Log("Setting Active Target: " + other.gameObject.name);
+            activeTarget = damageable;
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.layer == Player.Instance.PlayerLayer)
+                return;
+            
+            if (!other.TryGetComponent(out IDamageable damageable))
+                return;
+
+            if (damageable != activeTarget)
+                return;
+            
+            Debug.Log("Clearing active target");
+            activeTarget = null;
         }
     }
 }

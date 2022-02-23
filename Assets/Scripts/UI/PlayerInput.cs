@@ -7,6 +7,8 @@ namespace WormTomb
 {
     public class PlayerInput : Singleton<PlayerInput>
     {
+        public bool IsInputEnabled;
+        
         // TODO Remove Input condition for release.
         public bool IsJumpButtonPressed => jumpButton.IsPressed || Input.GetKey(KeyCode.Space);
         

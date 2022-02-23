@@ -9,13 +9,8 @@ namespace WormTomb
         [SerializeField] private PlayerTrigger ladderEndTrigger;
         [SerializeField] private Transform endTransform;
         
+        private Vector2 startPos;
         private bool isClimbing;
-        
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.L))
-                Interact();
-        }
 
         public void Interact()
         {
@@ -25,7 +20,8 @@ namespace WormTomb
         private IEnumerator ClimbLadder()
         {
             isClimbing = true;
-            Vector2 distance = endTransform.position - Player.Instance.Transform.position;
+            Player.Instance.RB.MoveTo(startPos);
+            Vector2 distance = (Vector2)endTransform.position - startPos;
             Vector2 speed = distance / climbDuration;
 
             while (isClimbing)
@@ -38,6 +34,7 @@ namespace WormTomb
         private void Awake()
         {
             ladderEndTrigger.OnPlayerTriggered.AddListener(EndClimbing);
+            startPos = transform.position;
         }
 
         private void EndClimbing()

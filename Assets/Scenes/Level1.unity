@@ -2110,7 +2110,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.5238094, y: 1}
+    m_SensorSize: {x: 2.1900826, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2203,6 +2203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 0
+  IsInputEnabled: 0
   leftButton: {fileID: 260827283}
   rightButton: {fileID: 413044898}
   jumpButton: {fileID: 1560713193}
@@ -2625,6 +2626,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1425859404, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6782073241125346621, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
       propertyPath: startingSpawn
       value: 

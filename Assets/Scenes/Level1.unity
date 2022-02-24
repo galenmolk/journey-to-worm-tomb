@@ -782,9 +782,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9940a4e3bc05435f9ebde822aa043f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  innerCircle: {fileID: 813524141}
-  outerCircle: {fileID: 744502362}
-  canvasGroup: {fileID: 139867100}
+  handleRange: 1
+  deadZone: 0
+  axisOptions: 0
+  snapX: 0
+  snapY: 0
+  background: {fileID: 744502362}
+  handle: {fileID: 813524141}
 --- !u!225 &139867100
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -967,7 +971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &245758812
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1056,7 +1060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &260827280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1387,7 +1391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &413044895
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1975,7 +1979,7 @@ GameObject:
   - component: {fileID: 744502364}
   - component: {fileID: 744502363}
   m_Layer: 5
-  m_Name: JoystickOuterCircle
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2140,7 +2144,7 @@ GameObject:
   - component: {fileID: 813524143}
   - component: {fileID: 813524142}
   m_Layer: 5
-  m_Name: JoystickInnerCircle
+  m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2412,7 +2416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1340062792
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2463,11 +2467,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 0
-  IsInputEnabled: 0
+  IsInputEnabled: 1
   leftButton: {fileID: 260827283}
   rightButton: {fileID: 413044898}
   jumpButton: {fileID: 1560713193}
   attackButton: {fileID: 245758813}
+  joystick: {fileID: 139867099}
 --- !u!1 &1389483885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,7 +2779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1560713192
 RectTransform:
   m_ObjectHideFlags: 0

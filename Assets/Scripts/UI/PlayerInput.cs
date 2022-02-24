@@ -10,16 +10,16 @@ namespace WormTomb
         public bool IsInputEnabled;
         
         // TODO Remove Input condition for release.
-        public bool IsJumpButtonPressed => jumpButton.IsPressed || Input.GetKey(KeyCode.Space);
+        public bool IsJumpButtonPressed => jumpButton.IsPressed || Input.GetKey(KeyCode.Space) || IsJoystickUp();
         
         // TODO Remove Input condition for release.
         public bool IsAttackButtonPressed => attackButton.IsPressed || Input.GetMouseButton(0);
 
         // TODO Remove Input condition for release.
-        public bool IsLeftButtonPressed => leftButton.IsPressed || Input.GetKey(KeyCode.A);
+        public bool IsLeftButtonPressed => leftButton.IsPressed || Input.GetKey(KeyCode.A) || IsJoystickLeft();
 
         // TODO Remove Input condition for release.
-        public bool IsRightButtonPressed => rightButton.IsPressed || Input.GetKey(KeyCode.D);
+        public bool IsRightButtonPressed => rightButton.IsPressed || Input.GetKey(KeyCode.D) || IsJoystickRight();
 
         [NonSerialized] public readonly UnityEvent RunningLeft = new();
         [NonSerialized] public readonly UnityEvent RunningRight = new();
@@ -32,6 +32,45 @@ namespace WormTomb
         [SerializeField] private CustomButton jumpButton;
         [SerializeField] private CustomButton attackButton;
 
+        [SerializeField] private Joystick joystick;
+        
+        private void Update()
+        {
+            Horizontal();
+            Vertical();
+        }
+
+        private void Horizontal()
+        {
+            if (IsJoystickLeft())
+                RunningLeft.Invoke();
+            else if (IsJoystickRight())
+                RunningRight.Invoke();
+            else
+                RunningStop.Invoke();
+        }
+        
+        private void Vertical()
+        {
+            if (IsJoystickUp())
+                Jump.Invoke();
+        }
+
+        private bool IsJoystickRight()
+        {
+            return joystick.Horizontal > 0f;
+        }
+        
+        private bool IsJoystickLeft()
+        {
+            return joystick.Horizontal < 0f;
+        }
+        
+        private bool IsJoystickUp()
+        {
+            return joystick.Vertical > 0f;
+        }
+        
         private void Awake()
         {
             leftButton.PointerEntered.AddListener(OnLeftButtonEntered);

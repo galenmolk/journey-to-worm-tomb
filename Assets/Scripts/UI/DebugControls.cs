@@ -31,12 +31,8 @@ namespace WormTomb
 
         private void Attack()
         {
-            Debug.Log("Attack?");
             if (Input.GetKeyDown(KeyCode.K))
-            {
-                Debug.Log("K");
                 PlayerInput.Instance.Attack.Invoke();
-            }
         }
     }
 }

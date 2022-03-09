@@ -33,8 +33,28 @@ namespace WormTomb
 
         private void OnEnable()
         {
+            SubscribeToJoystickEvents();
+            
+            PlayerClimb.OnClimbableEntered += UnsubscribeToJoystickEvents;
+            PlayerClimb.OnClimbableExited += SubscribeToJoystickEvents;
+        }
+
+        private void OnDisable()
+        {
+            PlayerClimb.OnClimbableEntered -= UnsubscribeToJoystickEvents;
+            PlayerClimb.OnClimbableExited -= SubscribeToJoystickEvents;
+        }
+
+        private void SubscribeToJoystickEvents()
+        {
             PlayerInput.Instance.joystickUp.AddListener(OnJump);
             GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundStateChanged);
+        }
+
+        private void UnsubscribeToJoystickEvents()
+        {
+            PlayerInput.Instance.joystickUp.RemoveListener(OnJump);
+            GroundCheck.Instance.GroundStateChanged.RemoveListener(OnGroundStateChanged);
         }
 
         private void OnGroundStateChanged(bool isGrounded)

@@ -9,11 +9,7 @@ namespace WormTomb
 
         public static event DiscoveredInteractable OnDiscoveredInteractable;
         public static event LostInteractable OnLostInteractable;
-        
-        // private const string InteractableLayerName = "Interactable";
-        //
-        // private int InteractableLayer { get; set; } 
-        
+
         private IInteractable currentInteractable = null;
         
         public bool TryInteract()
@@ -25,16 +21,8 @@ namespace WormTomb
             return true;
         }
 
-        // private void Awake()
-        // {
-        //     InteractableLayer = LayerMask.NameToLayer(InteractableLayerName);
-        // }
-
         private void OnTriggerEnter2D(Collider2D other)
         {
-            // if (other.gameObject.layer != InteractableLayer)
-            //     return;
-
             if (!other.TryGetComponent(out IInteractable interactable))
                 return;
 
@@ -45,9 +33,6 @@ namespace WormTomb
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            // if (other.gameObject.layer != InteractableLayer)
-            //     return;
-            
             if (!other.TryGetComponent(out IInteractable interactable))
                 return;
 

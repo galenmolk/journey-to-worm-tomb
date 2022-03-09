@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,12 +15,27 @@ namespace WormTomb
         private void OnEnable()
         {
             SubscribeToEvents();
+            
+            PlayerClimb.OnClimbableEntered += UnsubscribeToEvents;
+            PlayerClimb.OnClimbableExited += SubscribeToEvents;
+        }
+
+        private void OnDisable()
+        {
+            PlayerClimb.OnClimbableEntered -= UnsubscribeToEvents;
+            PlayerClimb.OnClimbableExited -= SubscribeToEvents;
         }
 
         private void SubscribeToEvents()
         {
             GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
             PlayerInput.Instance.joystickUp.AddListener(OnJump);
+        }
+        
+        private void UnsubscribeToEvents()
+        {
+            GroundCheck.Instance.GroundStateChanged.RemoveListener(OnGroundedStateChanged);
+            PlayerInput.Instance.joystickUp.RemoveListener(OnJump);
         }
         
         public void OnJump()

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace WormTomb
@@ -12,10 +14,17 @@ namespace WormTomb
     
     public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
+        [NonSerialized] public readonly UnityEvent pointerDown = new();
+        [NonSerialized] public readonly UnityEvent pointerUp = new();
+        
         public float Horizontal => (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x;
         public float Vertical => (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y;
         public Vector2 Direction => new Vector2(Horizontal, Vertical);
 
+        public bool IsLeft => Horizontal < 0f;
+        public bool IsRight => Horizontal > 0f;
+        public bool IsUp => Vertical > 0f;
+        
         private float HandleRange
         {
             get => handleRange;
@@ -76,7 +85,6 @@ namespace WormTomb
             handle.pivot = center;
             handle.anchoredPosition = Vector2.zero;
             background.gameObject.SetActive(false);
-
         }
 
         public virtual void OnPointerDown(PointerEventData eventData)
@@ -84,6 +92,7 @@ namespace WormTomb
             background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
             background.gameObject.SetActive(true);
             OnDrag(eventData);
+            pointerDown.Invoke();
         }
     
         public void OnDrag(PointerEventData eventData)
@@ -158,9 +167,10 @@ namespace WormTomb
             background.gameObject.SetActive(false);
             input = Vector2.zero;
             handle.anchoredPosition = Vector2.zero;
+            pointerUp.Invoke();
         }
-    
-        protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)
+
+        private Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)
         {
             Vector2 localPoint = Vector2.zero;
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, cam, out localPoint))

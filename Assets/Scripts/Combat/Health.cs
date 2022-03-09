@@ -34,6 +34,7 @@ namespace WormTomb
         {
             Debug.Log($"{gameObject} died.");
             isDead = true;
+            OnDie.Invoke();
         }
 
         private void Awake()

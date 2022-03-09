@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -7,116 +8,81 @@ namespace WormTomb
 {
     public class PlayerInput : Singleton<PlayerInput>
     {
-        public bool IsInputEnabled;
+        // TODO Remove Input condition for release.
+        public bool IsJoystickUp => Input.GetKey(KeyCode.Space) || joystick.IsUp;
         
         // TODO Remove Input condition for release.
-        public bool IsJumpButtonPressed => jumpButton.IsPressed || Input.GetKey(KeyCode.Space) || IsJoystickUp();
-        
-        // TODO Remove Input condition for release.
-        public bool IsAttackButtonPressed => attackButton.IsPressed || Input.GetMouseButton(0);
+        public bool IsJoystickLeft => Input.GetKey(KeyCode.A) || joystick.IsLeft;
 
         // TODO Remove Input condition for release.
-        public bool IsLeftButtonPressed => leftButton.IsPressed || Input.GetKey(KeyCode.A) || IsJoystickLeft();
+        public bool IsJoystickRight => Input.GetKey(KeyCode.D) || joystick.IsRight;
 
-        // TODO Remove Input condition for release.
-        public bool IsRightButtonPressed => rightButton.IsPressed || Input.GetKey(KeyCode.D) || IsJoystickRight();
+        [NonSerialized] public readonly UnityEvent joystickLeft = new();
+        [NonSerialized] public readonly UnityEvent joystickRight = new();
+        [NonSerialized] public readonly UnityEvent joystickCenter = new();
+        [NonSerialized] public readonly UnityEvent joystickUp = new();
+        [NonSerialized] public readonly UnityEvent playerAction = new();
 
-        [NonSerialized] public readonly UnityEvent RunningLeft = new();
-        [NonSerialized] public readonly UnityEvent RunningRight = new();
-        [NonSerialized] public readonly UnityEvent RunningStop = new();
-        [NonSerialized] public readonly UnityEvent Jump = new();
-        [NonSerialized] public readonly UnityEvent Attack = new();
-
-        [SerializeField] private CustomButton leftButton;
-        [SerializeField] private CustomButton rightButton;
-        [SerializeField] private CustomButton jumpButton;
-        [SerializeField] private CustomButton attackButton;
+        [SerializeField] private CustomButton actionButton;
 
         [SerializeField] private Joystick joystick;
+
+        private bool isReadingJoystick;
+        private Coroutine joystickCoroutine;
         
-        private void Update()
+        private void StartReadingJoystick()
         {
-            Horizontal();
-            Vertical();
+            isReadingJoystick = true;
+            joystickCoroutine = StartCoroutine(ReadJoystickContinuously());
         }
 
-        private void Horizontal()
+        private void StopReadingJoystick()
         {
-            if (IsJoystickLeft())
-                RunningLeft.Invoke();
-            else if (IsJoystickRight())
-                RunningRight.Invoke();
-            else
-                RunningStop.Invoke();
-        }
-        
-        private void Vertical()
-        {
-            if (IsJoystickUp())
-                Jump.Invoke();
+            isReadingJoystick = false;
+
+            if (joystickCoroutine != null)
+                StopCoroutine(joystickCoroutine);
+            
+            joystickCenter.Invoke();
         }
 
-        private bool IsJoystickRight()
+        private IEnumerator ReadJoystickContinuously()
         {
-            return joystick.Horizontal > 0f;
+            while (isReadingJoystick)
+            {
+                if (joystick.IsUp)
+                    joystickUp.Invoke();
+                
+                if (joystick.IsLeft)
+                    joystickLeft.Invoke();
+                else if (joystick.IsRight)
+                    joystickRight.Invoke();
+                else
+                    joystickCenter.Invoke();
+                
+                yield return YieldRegistry.WaitForEndOfFrame;
+            }
         }
         
-        private bool IsJoystickLeft()
+        private void OnActionButtonEntered(PointerEventData eventData)
         {
-            return joystick.Horizontal < 0f;
-        }
-        
-        private bool IsJoystickUp()
-        {
-            return joystick.Vertical > 0f;
+            playerAction.Invoke();
         }
         
         private void Awake()
         {
-            leftButton.PointerEntered.AddListener(OnLeftButtonEntered);
-            leftButton.PointerExited.AddListener(OnRunButtonExited);
-
-            rightButton.PointerEntered.AddListener(OnRightButtonEntered);
-            rightButton.PointerExited.AddListener(OnRunButtonExited);
-
-            jumpButton.PointerEntered.AddListener(OnJumpButtonEntered);
-            
-            attackButton.PointerEntered.AddListener(OnAttackButtonEntered);
-        }
-
-        private void OnLeftButtonEntered(PointerEventData eventData)
-        {
-            RunningLeft.Invoke();
-        }
-
-        private void OnRightButtonEntered(PointerEventData eventData)
-        {
-            RunningRight.Invoke();
-        }
-
-        private void OnRunButtonExited(PointerEventData eventData)
-        {
-            RunningStop.Invoke();
-        }
-
-        private void OnJumpButtonEntered(PointerEventData eventData)
-        {
-            Jump.Invoke();
-        }
-
-        private void OnAttackButtonEntered(PointerEventData eventData)
-        {
-            Attack.Invoke();
+            actionButton.PointerEntered.AddListener(OnActionButtonEntered);
+            joystick.pointerDown.AddListener(StartReadingJoystick);
+            joystick.pointerUp.AddListener(StopReadingJoystick);
         }
 
         private void OnDestroy()
         {
-            RunningLeft.RemoveAllListeners();
-            RunningRight.RemoveAllListeners();
-            RunningStop.RemoveAllListeners();
-            Attack.RemoveAllListeners();
-            Jump.RemoveAllListeners();
+            joystickLeft.RemoveAllListeners();
+            joystickRight.RemoveAllListeners();
+            joystickCenter.RemoveAllListeners();
+            playerAction.RemoveAllListeners();
+            joystickUp.RemoveAllListeners();
         }
     }
-
 }

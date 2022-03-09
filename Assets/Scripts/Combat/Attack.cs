@@ -1,5 +1,4 @@
 using UnityEngine;
-using WormTomb;
 
 public class Attack : MonoBehaviour
 {
@@ -7,20 +6,15 @@ public class Attack : MonoBehaviour
     [SerializeField] private Transform weaponParent;
     
     private Weapon equippedWeapon;
-
-    private void Awake()
-    {
-        equippedWeapon = Instantiate(equippedWeaponPrefab, weaponParent);
-    }
-
-    private void TryAttack()
+    
+    public void TryAttack()
     {
         if (equippedWeapon.CanAttack())
             equippedWeapon.AttackWithWeapon();
     }
-
-    private void OnEnable()
+    
+    private void Awake()
     {
-        PlayerInput.Instance.Attack.AddListener(TryAttack);
+        equippedWeapon = Instantiate(equippedWeaponPrefab, weaponParent);
     }
 }

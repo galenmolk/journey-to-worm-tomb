@@ -9,9 +9,9 @@ namespace WormTomb
 
         private void OnEnable()
         {
-            PlayerInput.Instance.RunningLeft.AddListener(OnRunningLeft);
-            PlayerInput.Instance.RunningRight.AddListener(OnRunningRight);
-            PlayerInput.Instance.RunningStop.AddListener(OnRunningStop);
+            PlayerInput.Instance.joystickLeft.AddListener(OnRunningLeft);
+            PlayerInput.Instance.joystickRight.AddListener(OnRunningRight);
+            PlayerInput.Instance.joystickCenter.AddListener(OnRunningStop);
         }
 
         private void OnRunningLeft()
@@ -31,7 +31,7 @@ namespace WormTomb
 
         private IEnumerator RunLeftContinuously()
         {
-            while (PlayerInput.Instance.IsLeftButtonPressed)
+            while (PlayerInput.Instance.IsJoystickLeft)
             {
                 Player.Instance.RB.SetHorizontalVelocity(-runSpeed);
                 yield return null;
@@ -40,7 +40,7 @@ namespace WormTomb
 
         private IEnumerator RunRightContinuously()
         {
-            while (PlayerInput.Instance.IsRightButtonPressed)
+            while (PlayerInput.Instance.IsJoystickRight)
             {
                 Player.Instance.RB.SetHorizontalVelocity(runSpeed);
                 yield return null;

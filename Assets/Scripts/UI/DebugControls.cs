@@ -8,31 +8,24 @@ namespace WormTomb
         {
             Run();
             Jump();
-            Attack();
         }
 
         private void Run()
         {
             if (Input.GetKeyDown(KeyCode.A))
-                PlayerInput.Instance.RunningLeft.Invoke();
+                PlayerInput.Instance.joystickLeft.Invoke();
 
             if (Input.GetKeyDown(KeyCode.D))
-                PlayerInput.Instance.RunningRight.Invoke();
+                PlayerInput.Instance.joystickRight.Invoke();
 
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-                PlayerInput.Instance.RunningStop.Invoke();
+                PlayerInput.Instance.joystickCenter.Invoke();
         }
 
         private void Jump()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                PlayerInput.Instance.Jump.Invoke();
-        }
-
-        private void Attack()
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-                PlayerInput.Instance.Attack.Invoke();
+                PlayerInput.Instance.joystickUp.Invoke();
         }
     }
 }

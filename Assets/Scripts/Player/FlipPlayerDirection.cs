@@ -8,8 +8,8 @@ namespace WormTomb
         
         private void OnEnable()
         {
-            PlayerInput.Instance.RunningLeft.AddListener(() => SetIsSpriteFlipped(true));
-            PlayerInput.Instance.RunningRight.AddListener(() => SetIsSpriteFlipped(false));
+            PlayerInput.Instance.joystickLeft.AddListener(() => SetIsSpriteFlipped(true));
+            PlayerInput.Instance.joystickRight.AddListener(() => SetIsSpriteFlipped(false));
         }   
 
         private void SetIsSpriteFlipped(bool isFlipped)

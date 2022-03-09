@@ -14,7 +14,7 @@ namespace WormTomb
         private void OnEnable()
         {
             GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
-            PlayerInput.Instance.Jump.AddListener(OnJump);
+            PlayerInput.Instance.joystickUp.AddListener(OnJump);
         }
 
         public void OnJump()
@@ -31,7 +31,7 @@ namespace WormTomb
             if (coyoteTimeCoroutine != null)
                 StopCoroutine(coyoteTimeCoroutine);
 
-            if (!isGrounded && !PlayerInput.Instance.IsJumpButtonPressed)
+            if (!isGrounded && !PlayerInput.Instance.IsJoystickUp)
                 coyoteTimeCoroutine = StartCoroutine(StartCoyoteTime());
         }
 

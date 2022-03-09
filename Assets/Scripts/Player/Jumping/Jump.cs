@@ -22,7 +22,7 @@ namespace WormTomb
 
         private IEnumerator JumpContinuously()
         {
-            while (PlayerInput.Instance.IsJumpButtonPressed)
+            while (PlayerInput.Instance.IsJoystickUp)
             {
                 if (GroundCheck.Instance.IsTouchingGround())
                     ExecuteJump();
@@ -33,7 +33,7 @@ namespace WormTomb
 
         private void OnEnable()
         {
-            PlayerInput.Instance.Jump.AddListener(OnJump);
+            PlayerInput.Instance.joystickUp.AddListener(OnJump);
             GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundStateChanged);
         }
 

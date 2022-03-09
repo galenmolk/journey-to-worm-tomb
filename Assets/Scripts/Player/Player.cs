@@ -4,7 +4,7 @@ namespace WormTomb
 {
     public class Player : Singleton<Player>
     {
-        private const string PLAYER_LAYER_NAME = "Player";
+        private const string PlayerLayerName = "Player";
         
         public int PlayerLayer { get; private set; }
 
@@ -26,7 +26,7 @@ namespace WormTomb
         
         private void Awake()
         {
-            PlayerLayer = LayerMask.NameToLayer(PLAYER_LAYER_NAME);
+            PlayerLayer = LayerMask.NameToLayer(PlayerLayerName);
         }
     }
 }

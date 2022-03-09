@@ -12,6 +12,11 @@ namespace WormTomb
         private Vector2 startPos;
         private bool isClimbing;
 
+        public bool CanInteract()
+        {
+            return true;
+        }
+
         public void Interact()
         {
             StartCoroutine(ClimbLadder());

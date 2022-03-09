@@ -13,10 +13,15 @@ namespace WormTomb
 
         private void OnEnable()
         {
-            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
-            PlayerInput.Instance.Jump.AddListener(OnJump);
+            SubscribeToEvents();
         }
 
+        private void SubscribeToEvents()
+        {
+            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            PlayerInput.Instance.joystickUp.AddListener(OnJump);
+        }
+        
         public void OnJump()
         {
             if (bufferCoroutine != null)

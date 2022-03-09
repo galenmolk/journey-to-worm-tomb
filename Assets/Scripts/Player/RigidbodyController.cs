@@ -5,7 +5,7 @@ namespace WormTomb
     [RequireComponent(typeof(Rigidbody2D))]
     public class RigidbodyController : MonoBehaviour
     {
-        public Vector2Event VelocityChanged = new Vector2Event();
+        public readonly Vector2Event velocityChanged = new();
 
         public float VelocityX { get { return rb.velocity.x; } }
 
@@ -31,12 +31,12 @@ namespace WormTomb
         private void SetVelocity(Vector2 velocity)
         {
             rb.velocity = velocity;
-            VelocityChanged.Invoke(velocity);
+            velocityChanged.Invoke(velocity);
         }
 
         private void OnDisable()
         {
-            VelocityChanged.RemoveAllListeners();
+            velocityChanged.RemoveAllListeners();
         }
     }
 }

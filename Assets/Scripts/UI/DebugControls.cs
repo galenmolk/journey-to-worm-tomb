@@ -19,7 +19,7 @@ namespace WormTomb
                 PlayerInput.Instance.joystickRight.Invoke();
 
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-                PlayerInput.Instance.joystickCenter.Invoke();
+                PlayerInput.Instance.joystickCenterX.Invoke();
         }
 
         private void Jump()

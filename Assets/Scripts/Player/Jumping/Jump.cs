@@ -11,50 +11,28 @@ namespace WormTomb
 
         public void ExecuteJump()
         {
+            if (PlayerClimb.IsTouchingClimbable)
+                return;
+            
             IsJumping = true;
             Player.Instance.RB.SetVerticalVelocity(jumpForce);
         }
 
-        private void OnJump()
+        private void OnJoystickUp()
         {
-            StartCoroutine(JumpContinuously());
-        }
-
-        private IEnumerator JumpContinuously()
-        {
-            while (PlayerInput.Instance.IsJoystickUp)
-            {
-                if (GroundCheck.Instance.IsTouchingGround())
-                    ExecuteJump();
-
-                yield return null;
-            }
+            if (GroundCheck.Instance.IsTouchingGround())
+                ExecuteJump();
         }
 
         private void OnEnable()
         {
             SubscribeToJoystickEvents();
-            
-            PlayerClimb.OnClimbableEntered += UnsubscribeToJoystickEvents;
-            PlayerClimb.OnClimbableExited += SubscribeToJoystickEvents;
-        }
-
-        private void OnDisable()
-        {
-            PlayerClimb.OnClimbableEntered -= UnsubscribeToJoystickEvents;
-            PlayerClimb.OnClimbableExited -= SubscribeToJoystickEvents;
         }
 
         private void SubscribeToJoystickEvents()
         {
-            PlayerInput.Instance.joystickUp.AddListener(OnJump);
+            PlayerInput.Instance.joystickUp.AddListener(OnJoystickUp);
             GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundStateChanged);
-        }
-
-        private void UnsubscribeToJoystickEvents()
-        {
-            PlayerInput.Instance.joystickUp.RemoveListener(OnJump);
-            GroundCheck.Instance.GroundStateChanged.RemoveListener(OnGroundStateChanged);
         }
 
         private void OnGroundStateChanged(bool isGrounded)

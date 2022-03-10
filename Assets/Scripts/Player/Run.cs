@@ -7,42 +7,32 @@ namespace WormTomb
     {
         [SerializeField] private float runSpeed;
 
+        private bool isRunning;
+        
         private void OnEnable()
         {
-            PlayerInput.Instance.joystickLeft.AddListener(OnRunningLeft);
-            PlayerInput.Instance.joystickRight.AddListener(OnRunningRight);
-            PlayerInput.Instance.joystickCenter.AddListener(OnRunningStop);
+            PlayerInput.Instance.joystickLeft.AddListener(() => StartRunning(-runSpeed));
+            PlayerInput.Instance.joystickRight.AddListener(() => StartRunning(runSpeed));
+            PlayerInput.Instance.joystickCenterX.AddListener(OnRunningStop);
         }
 
-        private void OnRunningLeft()
+        private void StartRunning(float velocity)
         {
-            StartCoroutine(RunLeftContinuously());
-        }
-
-        private void OnRunningRight()
-        {
-            StartCoroutine(RunRightContinuously());
+            isRunning = true;
+            StartCoroutine(RunContinuously(velocity));
         }
 
         private void OnRunningStop()
         {
+            isRunning = false;
             Player.Instance.RB.SetHorizontalVelocity(0f);
         }
 
-        private IEnumerator RunLeftContinuously()
+        private IEnumerator RunContinuously(float velocity)
         {
-            while (PlayerInput.Instance.IsJoystickLeft)
+            while (isRunning)
             {
-                Player.Instance.RB.SetHorizontalVelocity(-runSpeed);
-                yield return null;
-            }
-        }
-
-        private IEnumerator RunRightContinuously()
-        {
-            while (PlayerInput.Instance.IsJoystickRight)
-            {
-                Player.Instance.RB.SetHorizontalVelocity(runSpeed);
+                Player.Instance.RB.SetHorizontalVelocity(velocity);
                 yield return null;
             }
         }

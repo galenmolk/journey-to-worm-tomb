@@ -21,9 +21,14 @@ namespace WormTomb
         public float Vertical => (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y;
         public Vector2 Direction => new Vector2(Horizontal, Vertical);
 
-        public bool IsLeft => Horizontal < 0f;
-        public bool IsRight => Horizontal > 0f;
-        public bool IsUp => Vertical > 0f;
+        public bool IsLeft => Horizontal < -horizontalSensitivity;
+        public bool IsRight => Horizontal > horizontalSensitivity;
+        public bool IsUp => Vertical > verticalSensitivity;
+        public bool IsDown => Vertical < -verticalSensitivity;
+
+        [Tooltip("How high/low/left/right does the joystick have to be for it to register?")]
+        [SerializeField] [Range(0f, 1f)] private float verticalSensitivity;
+        [SerializeField] [Range(0f, 1f)] private float horizontalSensitivity;
         
         private float HandleRange
         {

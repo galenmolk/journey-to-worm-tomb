@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utils;
 
 namespace WormTomb
 {
@@ -26,6 +27,11 @@ namespace WormTomb
         public void MoveTo(Vector2 position)
         {
             rb.MovePosition(position);
+        }
+
+        public void SetIsObeyingGravity(bool isObeying)
+        {
+            rb.gravityScale = isObeying ? GameConsts.DefaultPlayerGravityScale : GameConsts.ZeroPlayerGravityScale;
         }
 
         private void SetVelocity(Vector2 velocity)

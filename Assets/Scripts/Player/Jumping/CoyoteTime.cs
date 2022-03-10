@@ -14,27 +14,12 @@ namespace WormTomb
         private void OnEnable()
         {
             SubscribeToEvents();
-            
-            PlayerClimb.OnClimbableEntered += UnsubscribeToEvents;
-            PlayerClimb.OnClimbableExited += SubscribeToEvents;
-        }
-
-        private void OnDisable()
-        {
-            PlayerClimb.OnClimbableEntered -= UnsubscribeToEvents;
-            PlayerClimb.OnClimbableExited -= SubscribeToEvents;
         }
 
         private void SubscribeToEvents()
         {
             GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
             PlayerInput.Instance.joystickUp.AddListener(OnJump);
-        }
-        
-        private void UnsubscribeToEvents()
-        {
-            GroundCheck.Instance.GroundStateChanged.RemoveListener(OnGroundedStateChanged);
-            PlayerInput.Instance.joystickUp.RemoveListener(OnJump);
         }
 
         public void OnJump()
@@ -51,7 +36,7 @@ namespace WormTomb
             if (coyoteTimeCoroutine != null)
                 StopCoroutine(coyoteTimeCoroutine);
 
-            if (!isGrounded && !PlayerInput.Instance.IsJoystickUp)
+            if (!isGrounded)
                 coyoteTimeCoroutine = StartCoroutine(StartCoyoteTime());
         }
 

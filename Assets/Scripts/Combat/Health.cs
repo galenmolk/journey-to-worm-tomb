@@ -34,6 +34,7 @@ namespace WormTomb
         {
             Debug.Log($"{gameObject} died.");
             isDead = true;
+            ParticleController.Instance.SpawnAttackParticle(transform.position);
             OnDie.Invoke();
         }
 

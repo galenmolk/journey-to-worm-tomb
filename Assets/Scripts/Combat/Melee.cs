@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace WormTomb
 {
@@ -32,6 +33,7 @@ namespace WormTomb
             if (activeTarget == null)
                 return;
             
+            ParticleController.Instance.SpawnAttackParticle(transform.position);
             activeTarget.TakeDamage(damageAmount);
         }
 

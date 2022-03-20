@@ -13,7 +13,7 @@ namespace WormTomb
 
         private void OnEnable()
         {
-            Player.Instance.RB.velocityChanged.AddListener(OnVelocityChanged);
+            Player.Instance.RB.OnVelocityChanged.AddListener(OnVelocityChanged);
         }
 
         private void SetIsRunning(bool isRunning)

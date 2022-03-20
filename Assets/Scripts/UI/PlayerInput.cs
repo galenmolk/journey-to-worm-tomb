@@ -8,13 +8,13 @@ namespace WormTomb
 {
     public class PlayerInput : Singleton<PlayerInput>
     {
-        [NonSerialized] public readonly UnityEvent joystickLeft = new();
-        [NonSerialized] public readonly UnityEvent joystickRight = new();
-        [NonSerialized] public readonly UnityEvent joystickCenterX = new();
-        [NonSerialized] public readonly UnityEvent joystickCenterY = new();
-        [NonSerialized] public readonly UnityEvent joystickUp = new();
-        [NonSerialized] public readonly UnityEvent joystickDown = new();
-        [NonSerialized] public readonly UnityEvent playerAction = new();
+        public UnityEvent joystickLeft = new();
+        public UnityEvent joystickRight = new();
+        public UnityEvent joystickCenterX = new();
+        public UnityEvent joystickCenterY = new();
+        public UnityEvent joystickUp = new();
+        public UnityEvent joystickDown = new();
+        public UnityEvent playerAction = new();
 
         [SerializeField] private CustomButton actionButton;
         [SerializeField] private Joystick joystick;

@@ -2,7 +2,7 @@ namespace Utils
 {
     public static class GameConsts
     {
-        public const float DefaultPlayerGravityScale = 2f;
-        public const float ZeroPlayerGravityScale = 0f;
+        public const float DefaultGravityScale = 2f;
+        public const float ZeroGravityScale = 0f;
     }
 }

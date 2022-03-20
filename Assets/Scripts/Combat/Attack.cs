@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Attack : MonoBehaviour
 {
+    public UnityEvent OnAttack = new UnityEvent();
+    
     [SerializeField] private Weapon equippedWeaponPrefab;
     [SerializeField] private Transform weaponParent;
     
@@ -9,8 +12,11 @@ public class Attack : MonoBehaviour
     
     public void TryAttack()
     {
-        if (equippedWeapon.CanAttack())
-            equippedWeapon.AttackWithWeapon();
+        if (!equippedWeapon.CanAttack()) 
+            return;
+
+        OnAttack.Invoke();
+        equippedWeapon.AttackWithWeapon();
     }
     
     private void Awake()

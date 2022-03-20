@@ -6,43 +6,48 @@ namespace WormTomb
     [RequireComponent(typeof(Rigidbody2D))]
     public class RigidbodyController : MonoBehaviour
     {
-        public readonly Vector2Event velocityChanged = new();
+        public Vector2Event OnVelocityChanged = new();
 
-        public float VelocityX { get { return rb.velocity.x; } }
+        public float VelocityX => RB.velocity.x;
 
-        public Vector2 Position { get { return rb.position; } }
+        public Vector2 Position => RB.position;
 
-        [SerializeField] private Rigidbody2D rb;
+        public Rigidbody2D RB { get; private set; }
 
         public void SetHorizontalVelocity(float x)
         {
-            SetVelocity(new Vector2(x, rb.velocity.y));
+            SetVelocity(new Vector2(x, RB.velocity.y));
         }
 
         public void SetVerticalVelocity(float y)
         {
-            SetVelocity(new Vector2(rb.velocity.x, y));
+            SetVelocity(new Vector2(RB.velocity.x, y));
         }
 
         public void MoveTo(Vector2 position)
         {
-            rb.MovePosition(position);
+            RB.MovePosition(position);
         }
 
         public void SetIsObeyingGravity(bool isObeying)
         {
-            rb.gravityScale = isObeying ? GameConsts.DefaultPlayerGravityScale : GameConsts.ZeroPlayerGravityScale;
+            RB.gravityScale = isObeying ? GameConsts.DefaultGravityScale : GameConsts.ZeroGravityScale;
         }
 
         private void SetVelocity(Vector2 velocity)
         {
-            rb.velocity = velocity;
-            velocityChanged.Invoke(velocity);
+            RB.velocity = velocity;
+            OnVelocityChanged.Invoke(velocity);
+        }
+
+        private void Awake()
+        {
+            RB = GetComponent<Rigidbody2D>();
         }
 
         private void OnDisable()
         {
-            velocityChanged.RemoveAllListeners();
+            OnVelocityChanged.RemoveAllListeners();
         }
     }
 }

@@ -20,17 +20,20 @@ namespace WormTomb
         private int currentWaypoint;
         private bool hasReachedEndOfPath;
 
+        private SeekerProperties properties;
+        
         private void Awake()
         {
             detectPlayer.PlayerDetected.AddListener(OnPlayerDetected);
             animator.speed = 0f;
+            properties = new SeekerProperties(rigidbodyController, Player.Instance.Transform, OnPathComplete, 0.5f);
         }
 
         private void OnPlayerDetected()
         {
             Debug.Log("OnPlayerDetected");
 
-            SeekerManager.StartSeeking(seeker, rigidbodyController, Player.Instance.transform, OnPathComplete, 0.5f);
+            SeekerManager.StartSeeking(seeker, properties);
         }
 
         private void FixedUpdate()

@@ -2683,7 +2683,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102362913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.11, y: 2.21, z: -9}
+  m_LocalPosition: {x: 56.25, y: 2.21, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2771,7 +2771,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3333334, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2865,6 +2865,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 0
+  joystickLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1861594865}
+        m_TargetAssemblyTypeName: WormTomb.SetFacing, Assembly-CSharp
+        m_MethodName: SetFacingToLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  joystickRight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1861594865}
+        m_TargetAssemblyTypeName: WormTomb.SetFacing, Assembly-CSharp
+        m_MethodName: SetFacingToRight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  joystickCenterX:
+    m_PersistentCalls:
+      m_Calls: []
+  joystickCenterY:
+    m_PersistentCalls:
+      m_Calls: []
+  joystickUp:
+    m_PersistentCalls:
+      m_Calls: []
+  joystickDown:
+    m_PersistentCalls:
+      m_Calls: []
+  playerAction:
+    m_PersistentCalls:
+      m_Calls: []
   actionButton: {fileID: 974744763}
   joystick: {fileID: 139867099}
 --- !u!1 &1404080528 stripped
@@ -3193,7 +3238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1545461483
 Transform:
   m_ObjectHideFlags: 0
@@ -3362,7 +3407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1588004827
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3623,33 +3668,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3947221363864007224, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
-      propertyPath: climbSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6782073241125346621, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
       propertyPath: startingSpawn
       value: 
       objectReference: {fileID: 1988879476}
-    - target: {fileID: 8027615802228076973, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8027615802228076973, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8027615802228076973, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8027615802380125940, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8027615802380125940, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.11
+      value: 56.25
       objectReference: {fileID: 0}
     - target: {fileID: 8027615802380125940, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3698,6 +3727,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8027615802380125940, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
   m_PrefabInstance: {fileID: 1861594835}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1861594865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1861594865, guid: 322a7b92ac25b40a5b51a3b6c1d24294, type: 3}
+  m_PrefabInstance: {fileID: 1861594835}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98539ead169b48e098cf3109a4ebd2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1957208840
 GameObject:
   m_ObjectHideFlags: 0
@@ -4094,10 +4134,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandEye
       objectReference: {fileID: 0}
-    - target: {fileID: 2786097422692717270, guid: 9030233de60e749288add29569a50a99, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2786097422692717271, guid: 9030233de60e749288add29569a50a99, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -4140,6 +4176,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2786097422692717271, guid: 9030233de60e749288add29569a50a99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786097423895129038, guid: 9030233de60e749288add29569a50a99, type: 3}
+      propertyPath: stoppingDistance
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4582,7 +4622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &7557046335430894831
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4706,7 +4746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &8480646956734967704
 BoxCollider2D:
   m_ObjectHideFlags: 0

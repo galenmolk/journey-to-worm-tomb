@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class MainMenuBindings : MonoBehaviour
+namespace WormTomb.UI
 {
-    public void PlayButtonClicked()
+    public class MainMenuBindings : MonoBehaviour
     {
-        Debug.Log("Play Button Clicked!");
-        SceneLoader.LoadScene("Level1");
+        public void PlayButtonClicked()
+        {
+            Debug.Log("Play Button Clicked!");
+            SceneLoader.LoadScene("Level1");
+        }
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine.Events;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.Enemies
 {
     public class DetectPlayer : Trigger
     {

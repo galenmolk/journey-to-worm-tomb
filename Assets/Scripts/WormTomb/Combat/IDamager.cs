@@ -1,4 +1,7 @@
-public interface IDamager
+namespace WormTomb.Combat
 {
-    int DamageAmount { get; }
+    public interface IDamager
+    {
+        int DamageAmount { get; }
+    }
 }

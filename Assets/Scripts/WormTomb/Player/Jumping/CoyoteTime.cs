@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using WormTomb.General;
+using WormTomb.UI;
 
-namespace WormTomb
+namespace WormTomb.Player.Jumping
 {
     public class CoyoteTime : MonoBehaviour
     {

@@ -2,117 +2,120 @@ using UnityEngine;
 
 
 // This class derived was from https://gamedev.stackexchange.com/a/151547
-public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace WormTomb.General
 {
-    private static T _instance;
-
-    private static readonly object _lockObject = new object();
-
-    [Tooltip("This will mark this GameObject to persist between scenes")]
-    [SerializeField]
-    private bool _persistent = true;
-
-    private static bool _quitting = false;
-
-    public static T Instance
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        get
+        private static T _instance;
+
+        private static readonly object _lockObject = new object();
+
+        [Tooltip("This will mark this GameObject to persist between scenes")]
+        [SerializeField]
+        private bool _persistent = true;
+
+        private static bool _quitting = false;
+
+        public static T Instance
         {
-            if (_quitting)
+            get
             {
-                Debug.LogWarningFormat("[{0}] Instance will not be returned because the application is quitting.", typeof(T));
-                return null;
-            }
-            lock (_lockObject)
-            {
-                if (_instance == null)
+                if (_quitting)
                 {
-                    FindAndSetInstance();
+                    Debug.LogWarningFormat("[{0}] Instance will not be returned because the application is quitting.", typeof(T));
+                    return null;
                 }
-
-                return _instance;
-            }
-        }
-    }
-
-    #region  Methods
-    void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Debug.LogWarningFormat("[{0}] Instance was already set and is not this, destroying this component", typeof(T));
-            DestroySelf();
-        }
-        else
-        {
-            FindAndSetInstance();
-
-            if (_persistent)
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-
-            OnAwake();
-        }
-    }
-
-    void OnApplicationQuit()
-    {
-        _quitting = true;
-    }
-
-    /// <summary>
-    /// Meant to be overridden in the child classes as an init
-    /// </summary>
-    protected virtual void OnAwake() { }
-
-    private void DestroySelf()
-    {
-        if (Application.isEditor)
-        {
-            DestroyImmediate(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
-
-    private static void FindAndSetInstance()
-    {
-        if (_instance != null)
-        {
-            return;
-        }
-
-        else
-        {
-            T[] allInstances = FindObjectsOfType<T>();
-
-            if (allInstances.Length > 0)
-            {
-                if (allInstances.Length == 1)
+                lock (_lockObject)
                 {
-                    _instance = allInstances[0];
-                    return;
-                }
-                else
-                {
-                    Debug.LogWarningFormat("[{0}] There should never be more than one Singleton of type {0} in the scene, but {1} were found. The first " +
-                                            "instance found will be used, and all others will be destroyed.", typeof(T), allInstances.Length);
-
-                    for (var i = 1; i < allInstances.Length; i++)
+                    if (_instance == null)
                     {
-                        Destroy(allInstances[i]);
+                        FindAndSetInstance();
                     }
-                    _instance = allInstances[0];
-                    return;
+
+                    return _instance;
                 }
             }
-
-            // Should an instance be created here if one isn't found? 
-            Debug.LogWarningFormat("[{0}] There were no instances of type {0} in the scene, mInstance is null", typeof(T));
         }
+
+        #region  Methods
+        void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Debug.LogWarningFormat("[{0}] Instance was already set and is not this, destroying this component", typeof(T));
+                DestroySelf();
+            }
+            else
+            {
+                FindAndSetInstance();
+
+                if (_persistent)
+                {
+                    DontDestroyOnLoad(gameObject);
+                }
+
+                OnAwake();
+            }
+        }
+
+        void OnApplicationQuit()
+        {
+            _quitting = true;
+        }
+
+        /// <summary>
+        /// Meant to be overridden in the child classes as an init
+        /// </summary>
+        protected virtual void OnAwake() { }
+
+        private void DestroySelf()
+        {
+            if (Application.isEditor)
+            {
+                DestroyImmediate(this);
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
+
+        private static void FindAndSetInstance()
+        {
+            if (_instance != null)
+            {
+                return;
+            }
+
+            else
+            {
+                T[] allInstances = FindObjectsOfType<T>();
+
+                if (allInstances.Length > 0)
+                {
+                    if (allInstances.Length == 1)
+                    {
+                        _instance = allInstances[0];
+                        return;
+                    }
+                    else
+                    {
+                        Debug.LogWarningFormat("[{0}] There should never be more than one Singleton of type {0} in the scene, but {1} were found. The first " +
+                                               "instance found will be used, and all others will be destroyed.", typeof(T), allInstances.Length);
+
+                        for (var i = 1; i < allInstances.Length; i++)
+                        {
+                            Destroy(allInstances[i]);
+                        }
+                        _instance = allInstances[0];
+                        return;
+                    }
+                }
+
+                // Should an instance be created here if one isn't found? 
+                Debug.LogWarningFormat("[{0}] There were no instances of type {0} in the scene, mInstance is null", typeof(T));
+            }
+        }
+        #endregion
     }
-    #endregion
 }

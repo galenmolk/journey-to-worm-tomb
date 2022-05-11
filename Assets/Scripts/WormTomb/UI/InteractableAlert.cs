@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using WormTomb.Player;
 
-namespace WormTomb
+namespace WormTomb.UI
 {
     [RequireComponent(typeof(Image))]
     public class InteractableAlert : MonoBehaviour

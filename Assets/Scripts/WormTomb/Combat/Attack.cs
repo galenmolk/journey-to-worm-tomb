@@ -1,38 +1,37 @@
 using UnityEngine;
 using UnityEngine.Events;
-using WormTomb.Combat;
 
-public class Attack : MonoBehaviour
+namespace WormTomb.Combat
 {
-    public UnityEvent OnAttack = new();
-
-    public Weapon EquippedWeapon => equippedWeapon;
-    
-    [SerializeField] private Weapon equippedWeaponPrefab;
-    [SerializeField] private Transform weaponParent;
-    [SerializeField] private LayerMask ignoreLayers;
-    
-    private Weapon equippedWeapon;
-    
-    public void TryAttack()
+    public class Attack : MonoBehaviour
     {
-        Debug.Log("TryAttack");
-        if (!equippedWeapon.CanAttack()) 
-            return;
+        public UnityEvent onAttack = new();
 
-        Debug.Log("AttackWithWeapon");
-        OnAttack.Invoke();
-        equippedWeapon.AttackWithWeapon();
-    }
+        public Weapon EquippedWeapon { get; private set; }
 
-    private void EquipWeapon()
-    {
-        equippedWeapon = Instantiate(equippedWeaponPrefab, weaponParent);
-        equippedWeapon.Initialize(new WeaponParams(ignoreLayers));
-    }
+        [SerializeField] private Weapon equippedWeaponPrefab;
+        [SerializeField] private Transform weaponParent;
+        [SerializeField] private LayerMask ignoreLayers;
+
+        public void TryAttack()
+        {
+            if (!EquippedWeapon.CanAttack()) 
+                return;
+
+            Debug.Log("AttackWithWeapon");
+            onAttack.Invoke();
+            EquippedWeapon.AttackWithWeapon();
+        }
+
+        private void EquipWeapon()
+        {
+            EquippedWeapon = Instantiate(equippedWeaponPrefab, weaponParent);
+            EquippedWeapon.Initialize(new WeaponParams(ignoreLayers));
+        }
     
-    private void Awake()
-    {
-        EquipWeapon();
+        private void Awake()
+        {
+            EquipWeapon();
+        }
     }
 }

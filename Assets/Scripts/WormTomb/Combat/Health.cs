@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WormTomb
+namespace WormTomb.Combat
 {
     public class Health : MonoBehaviour, IDamageable
     {
@@ -9,6 +9,7 @@ namespace WormTomb
         
         public int CurrentHealth { get; private set; }
 
+        public int StartingHealth => startingHealth;
         [SerializeField, Min(1)] private int startingHealth = 1;
 
         private bool isDead;
@@ -22,11 +23,11 @@ namespace WormTomb
 
             if (CurrentHealth - amount > 0)
             {
-                CurrentHealth -= amount;
+                ModifyHealth(-amount);
                 return;
             }
             
-            CurrentHealth = 0;
+            SetHealth(0);
             Die();
         }
 
@@ -37,10 +38,32 @@ namespace WormTomb
             ParticleController.Instance.SpawnAttackParticle(transform.position);
             OnDie.Invoke();
         }
+        
+        protected void Restore()
+        {
+            SetHealth(startingHealth);
+            isDead = false;
+        }
+        
+        protected virtual void ModifyHealth(int delta)
+        {
+            CurrentHealth += delta;
+        }
+        
+        private void SetHealth(int value)
+        {
+            if (value == CurrentHealth)
+                return;
 
+            if (CurrentHealth > value)
+                ModifyHealth(-(CurrentHealth - value));
+            else
+                ModifyHealth(value - CurrentHealth);
+        }
+        
         private void Awake()
         {
-            CurrentHealth = startingHealth;
+            Restore();
         }
     }
 }

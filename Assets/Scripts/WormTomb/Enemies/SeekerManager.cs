@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
+using WormTomb.Enemies.Pathfinding;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.Enemies
 {
     public static class SeekerManager
     {

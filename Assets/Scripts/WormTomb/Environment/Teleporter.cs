@@ -1,20 +1,23 @@
 using System.Collections;
 using UnityEngine;
-using WormTomb;
+using WormTomb.General;
 
-public class Teleporter : Trigger
+namespace WormTomb.Environment
 {
-    [SerializeField] private Transform destination;
-    [SerializeField] private float delay;
-
-    protected override void TriggerEntered()
+    public class Teleporter : Trigger
     {
-        StartCoroutine(Teleport());
-    }
+        [SerializeField] private Transform destination;
+        [SerializeField] private float delay;
 
-    private IEnumerator Teleport()
-    {
-        yield return YieldRegistry.WaitForSeconds(delay);
-        Player.Instance.transform.position = destination.position;
+        protected override void TriggerEntered()
+        {
+            StartCoroutine(Teleport());
+        }
+
+        private IEnumerator Teleport()
+        {
+            yield return YieldRegistry.WaitForSeconds(delay);
+            Player.Player.Instance.transform.position = destination.position;
+        }
     }
 }

@@ -1,4 +1,4 @@
-namespace WormTomb
+namespace WormTomb.Environment
 {
     public interface IClimbable
     {

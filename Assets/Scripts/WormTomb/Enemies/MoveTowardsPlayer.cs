@@ -2,9 +2,12 @@ using System.Collections;
 using Pathfinding;
 using UnityEngine;
 using UnityEngine.Events;
+using WormTomb.Enemies.Pathfinding;
+using WormTomb.General;
+using WormTomb.Player;
 using WormTomb.Utils;
 
-namespace WormTomb
+namespace WormTomb.Enemies
 {
     [RequireComponent(typeof(Seeker))]
     [RequireComponent(typeof(RigidbodyController))]
@@ -88,7 +91,7 @@ namespace WormTomb
         private void Awake()
         {
             CacheComponents();
-            properties = new SeekerProperties(rigidbodyController, Player.Instance.Transform, OnPathReady, pathRepeatRate);
+            properties = new SeekerProperties(rigidbodyController, Player.Player.Instance.Transform, OnPathReady, pathRepeatRate);
         }
 
         private void CacheComponents()

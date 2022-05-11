@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using WormTomb.General;
 using WormTomb.Utils;
 
-namespace WormTomb
+namespace WormTomb.Combat
 {
     [RequireComponent(typeof(Attack))]
     public class AttackContinuously : MonoBehaviour

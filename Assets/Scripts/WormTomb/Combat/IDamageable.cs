@@ -1,6 +1,9 @@
-public interface IDamageable
+namespace WormTomb.Combat
 {
-    int CurrentHealth { get; }
-    void TakeDamage(int amount);
-    void Die();
+    public interface IDamageable
+    {
+        int CurrentHealth { get; }
+        void TakeDamage(int amount);
+        void Die();
+    }
 }

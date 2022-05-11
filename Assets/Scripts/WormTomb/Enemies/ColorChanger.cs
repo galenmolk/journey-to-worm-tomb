@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.Enemies
 {
     public class ColorChanger : MonoBehaviour
     {

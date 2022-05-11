@@ -1,4 +1,4 @@
-namespace Utils
+namespace WormTomb.Utils
 {
     public static class GameConsts
     {

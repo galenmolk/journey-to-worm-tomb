@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WormTomb
+namespace WormTomb.Player
 {
     public class PlayerAnimation : MonoBehaviour
     {

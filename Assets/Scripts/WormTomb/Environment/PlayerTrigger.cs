@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WormTomb
+namespace WormTomb.Environment
 {
     [RequireComponent(typeof(Collider2D))]
     public class PlayerTrigger : MonoBehaviour
@@ -19,7 +19,7 @@ namespace WormTomb
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer != Player.Instance.PlayerLayer)
+            if (other.gameObject.layer != Player.Player.Instance.PlayerLayer)
                 return;
 
             Triggered();

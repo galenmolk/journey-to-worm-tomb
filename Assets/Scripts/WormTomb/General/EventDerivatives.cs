@@ -3,9 +3,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class PointerEvent : UnityEvent<PointerEventData> { }
+namespace WormTomb.General
+{
+    public class PointerEvent : UnityEvent<PointerEventData> { }
 
-public class BoolEvent : UnityEvent<bool> { }
+    public class BoolEvent : UnityEvent<bool> { }
 
-[Serializable]
-public class Vector2Event : UnityEvent<Vector2> { }
+    [Serializable]
+    public class Vector2Event : UnityEvent<Vector2> { }
+}

@@ -1,6 +1,7 @@
 using UnityEngine;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.UI
 {
     public class DebugControls : Singleton<DebugControls>
     {

@@ -1,6 +1,6 @@
-using UnityEngine;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.Environment
 {
     public class Checkpoint : Trigger
     {

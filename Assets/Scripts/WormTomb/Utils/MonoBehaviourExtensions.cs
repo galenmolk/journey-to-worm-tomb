@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using WormTomb.General;
 
-namespace Utils
+namespace WormTomb.Utils
 {
     public static class MonoBehaviourExtensions
     {

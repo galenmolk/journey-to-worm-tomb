@@ -1,12 +1,16 @@
 using UnityEngine;
+using WormTomb.Combat;
 
-public class Hazard : MonoBehaviour
+namespace WormTomb.Environment
 {
-    [SerializeField] private int damageAmount = 0;
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class Hazard : MonoBehaviour
     {
-        Debug.Log(collision.gameObject.name);
-        collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
+        [SerializeField] private int damageAmount = 0;
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            Debug.Log(collision.gameObject.name);
+            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
+        }
     }
 }

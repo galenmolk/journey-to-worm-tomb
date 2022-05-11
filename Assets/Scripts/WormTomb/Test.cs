@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using WormTomb.General;
 
 namespace WormTomb
 {

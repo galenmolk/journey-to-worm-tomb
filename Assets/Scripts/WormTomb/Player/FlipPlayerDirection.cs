@@ -1,6 +1,7 @@
 using UnityEngine;
+using WormTomb.UI;
 
-namespace WormTomb
+namespace WormTomb.Player
 {
     public class FlipPlayerDirection : MonoBehaviour
     {

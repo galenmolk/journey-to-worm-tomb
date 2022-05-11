@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.UI
 {
     public class PlayerInput : Singleton<PlayerInput>
     {

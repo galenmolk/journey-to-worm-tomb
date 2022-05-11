@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8027615802380125940}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &264159763697767107
 BoxCollider2D:
@@ -135,54 +135,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.35000202, y: 0.2503502}
   m_Direction: 1
---- !u!1 &7980237914409389656
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3581314683335264755}
-  - component: {fileID: 3525534549458761793}
-  m_Layer: 6
-  m_Name: Body
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3581314683335264755
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7980237914409389656}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.09, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8027615802380125940}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &3525534549458761793
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7980237914409389656}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5e1947c72e39f444b9179b894b3d99ed, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.005589187, y: 0}
-  m_Size: {x: 0.72422093, y: 1.1804055}
-  m_Direction: 0
 --- !u!1 &8027615802228076975
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +165,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8027615802380125940}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8027615802228076973
 SpriteRenderer:
@@ -278,7 +230,6 @@ GameObject:
   - component: {fileID: 8027615802380125940}
   - component: {fileID: 8027615802380125964}
   - component: {fileID: 6782073241125346621}
-  - component: {fileID: 1418448636}
   - component: {fileID: 8027615802380125936}
   - component: {fileID: 983312150520465538}
   - component: {fileID: 3764199853380762523}
@@ -291,6 +242,8 @@ GameObject:
   - component: {fileID: 9062101657802946377}
   - component: {fileID: 330925519398658502}
   - component: {fileID: 1861594865}
+  - component: {fileID: 3352031426693979990}
+  - component: {fileID: 1861594881}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -311,7 +264,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6547618596154084558}
-  - {fileID: 3581314683335264755}
   - {fileID: 8027615802228076974}
   - {fileID: 6041352779654157829}
   - {fileID: 7988455257437483416}
@@ -345,34 +297,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingSpawn: {fileID: 0}
---- !u!114 &1418448636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8027615802380125941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989e4b4b429c9443a80d17b86c854306, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnDie:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6782073241125346621}
-        m_TargetAssemblyTypeName: WormTomb.Respawn, Assembly-CSharp
-        m_MethodName: GoToSpawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  startingHealth: 1
 --- !u!114 &8027615802380125936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,11 +350,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc911316488f4a1cbc4667066b18f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnAttack:
+  onAttack:
     m_PersistentCalls:
       m_Calls: []
   equippedWeaponPrefab: {fileID: -7755682413723423523, guid: 3dc00d4700a80402c860ecabe89706b8, type: 3}
   weaponParent: {fileID: 6041352779654157829}
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 127
 --- !u!114 &2209892473711350059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,6 +478,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98539ead169b48e098cf3109a4ebd2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &3352031426693979990
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027615802380125941}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 5e1947c72e39f444b9179b894b3d99ed, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.09}
+  m_Size: {x: 0.72422093, y: 1.1804055}
+  m_Direction: 0
+--- !u!114 &1861594881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027615802380125941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8830008c1c24f34997777081c376d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6782073241125346621}
+        m_TargetAssemblyTypeName: WormTomb.Player.Respawn, Assembly-CSharp
+        m_MethodName: GoToSpawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  startingHealth: 5
 --- !u!1001 &8323721893483531286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -564,7 +535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2329766931409705491, guid: cbb835cc657be4d588a219bf4afdef2f, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2329766931409705491, guid: cbb835cc657be4d588a219bf4afdef2f, type: 3}
       propertyPath: m_LocalPosition.x

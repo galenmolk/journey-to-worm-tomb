@@ -1,29 +1,33 @@
 using UnityEngine;
+using WormTomb.Combat;
 
-public class BreakableWall : MonoBehaviour, IDamageable
+namespace WormTomb.Environment
 {
-    [SerializeField] private int startingHealth = 0;
-
-    public int CurrentHealth { get; private set; }
-
-    private void Awake()
+    public class BreakableWall : MonoBehaviour, IDamageable
     {
-        CurrentHealth = startingHealth;
-    }
+        [SerializeField] private int startingHealth = 0;
 
-    public void TakeDamage(int amount)
-    {
-        if (CurrentHealth <= 0)
-            return;
+        public int CurrentHealth { get; private set; }
 
-        CurrentHealth -= amount;
+        private void Awake()
+        {
+            CurrentHealth = startingHealth;
+        }
 
-        if (CurrentHealth <= 0)
-            Die();
-    }
+        public void TakeDamage(int amount)
+        {
+            if (CurrentHealth <= 0)
+                return;
 
-    public void Die()
-    {
-        Destroy(gameObject);
+            CurrentHealth -= amount;
+
+            if (CurrentHealth <= 0)
+                Die();
+        }
+
+        public void Die()
+        {
+            Destroy(gameObject);
+        }
     }
 }

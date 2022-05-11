@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.UI
 {
     [RequireComponent(typeof(Image))]
     public class CustomButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler

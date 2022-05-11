@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WormTomb
+namespace WormTomb.Environment
 {
     public class Ladder : MonoBehaviour, IClimbable
     {

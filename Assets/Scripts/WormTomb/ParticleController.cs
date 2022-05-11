@@ -1,5 +1,6 @@
 using UnityEngine;
-using Utils;
+using WormTomb.General;
+using WormTomb.Utils;
 
 namespace WormTomb
 {

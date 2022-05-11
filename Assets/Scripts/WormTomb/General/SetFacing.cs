@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WormTomb
+namespace WormTomb.General
 {
     public class SetFacing : MonoBehaviour
     {

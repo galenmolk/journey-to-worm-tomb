@@ -1,7 +1,8 @@
 using Pathfinding;
 using UnityEngine;
+using WormTomb.Player;
 
-namespace WormTomb
+namespace WormTomb.Enemies.Pathfinding
 {
     public class SeekerProperties
     {

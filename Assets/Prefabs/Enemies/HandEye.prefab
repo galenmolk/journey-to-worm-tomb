@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 2786097423895129049}
   - component: {fileID: 2786097423895129051}
   - component: {fileID: 5409895088309775568}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HandEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,11 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc911316488f4a1cbc4667066b18f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnAttack:
+  onAttack:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2786097423895129051}
-        m_TargetAssemblyTypeName: WormTomb.EnemyAnimation, Assembly-CSharp
+        m_TargetAssemblyTypeName: WormTomb.Enemies.EnemyAnimation, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
@@ -248,6 +248,9 @@ MonoBehaviour:
         m_CallState: 2
   equippedWeaponPrefab: {fileID: -7755682413723423523, guid: 7e7b15cb1dc4e4675a8d08969f9e4112, type: 3}
   weaponParent: {fileID: 2547474853862086921}
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 191
 --- !u!114 &2786097423895129049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +258,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2786097422692717270}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c8f078f2edd406ca6beff5118ad0af3, type: 3}
   m_Name: 
@@ -324,7 +327,7 @@ GameObject:
   - component: {fileID: 2786097422716915725}
   - component: {fileID: 2786097422716915727}
   - component: {fileID: 2786097422716915726}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DetectPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2786097423671057399}
   - component: {fileID: 2786097423671057392}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,6 +501,10 @@ PrefabInstance:
     - target: {fileID: 34575535214349305, guid: cbb835cc657be4d588a219bf4afdef2f, type: 3}
       propertyPath: m_Name
       value: WeaponParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 34575535214349305, guid: cbb835cc657be4d588a219bf4afdef2f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2329766931409705491, guid: cbb835cc657be4d588a219bf4afdef2f, type: 3}
       propertyPath: m_RootOrder

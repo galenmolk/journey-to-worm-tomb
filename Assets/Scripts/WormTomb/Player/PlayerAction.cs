@@ -1,6 +1,8 @@
 using UnityEngine;
+using WormTomb.Combat;
+using WormTomb.UI;
 
-namespace WormTomb
+namespace WormTomb.Player
 {
     public class PlayerAction : MonoBehaviour
     {

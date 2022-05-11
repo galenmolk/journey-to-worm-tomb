@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WormTomb
+namespace WormTomb.Enemies
 {
     [RequireComponent(typeof(Animator))]
     public class EnemyAnimation : MonoBehaviour

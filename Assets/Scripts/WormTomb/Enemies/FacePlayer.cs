@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using WormTomb.General;
 
-namespace WormTomb
+namespace WormTomb.Enemies
 {
     [RequireComponent(typeof(SetFacing))]
     public class FacePlayer : MonoBehaviour
@@ -28,7 +29,7 @@ namespace WormTomb
         {
             while (shouldFacePlayer)
             {
-                _setFacing.SetFacingFromTarget(Player.Instance.Transform.position);
+                _setFacing.SetFacingFromTarget(Player.Player.Instance.Transform.position);
                 yield return YieldRegistry.WaitForSeconds(updateFrequency);
             }
         }

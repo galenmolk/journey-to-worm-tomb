@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace WormTomb
+namespace WormTomb.UI
 {
     public enum AxisOptions
     {

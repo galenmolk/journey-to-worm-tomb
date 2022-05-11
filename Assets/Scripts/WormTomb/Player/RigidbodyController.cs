@@ -1,7 +1,8 @@
 using UnityEngine;
-using Utils;
+using WormTomb.General;
+using WormTomb.Utils;
 
-namespace WormTomb
+namespace WormTomb.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class RigidbodyController : MonoBehaviour

@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using WormTomb.Environment;
+using WormTomb.UI;
 
-namespace WormTomb
+namespace WormTomb.Player
 {
     public class PlayerClimb : MonoBehaviour
     {

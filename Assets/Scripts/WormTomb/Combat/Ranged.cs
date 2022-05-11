@@ -1,15 +1,22 @@
-public class Ranged : Weapon
+namespace WormTomb.Combat
 {
-
-    public override void AttackWithWeapon()
+    public class Ranged : Weapon
     {
-        throw new System.NotImplementedException();
-    }
+        public override int DamageAmount { get; }
+        
+        public override void AttackWithWeapon()
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public override bool CanAttack()
-    {
-        throw new System.NotImplementedException();
-    }
+        public override bool CanAttack()
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public override int DamageAmount { get; }
+        public override void Initialize(WeaponParams WeaponParams)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using WormTomb.Utils;
 
-namespace WormTomb
+namespace WormTomb.Combat
 {
     public class Melee : Weapon
     {
-        [SerializeField] private LayerMask ignoreLayers;
+        public override int DamageAmount => damageAmount;
         
         private IDamageable activeTarget;
         
@@ -15,7 +14,10 @@ namespace WormTomb
             return !isCoolDownInProgress;
         }
 
-        public override int DamageAmount => damageAmount;
+        public override void Initialize(WeaponParams WeaponParams)
+        {
+            weaponParams = WeaponParams;
+        }
 
         public override void AttackWithWeapon()
         {
@@ -44,7 +46,7 @@ namespace WormTomb
         {
             Debug.Log("layer: " + other.gameObject.layer);
 
-            if (ignoreLayers.ContainsLayer(other.gameObject.layer))
+            if (!IsTargetValid(other.gameObject))
             {
                 Debug.Log("layer is ignored");
                 return;
@@ -62,7 +64,7 @@ namespace WormTomb
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (ignoreLayers.ContainsLayer(other.gameObject.layer))
+            if (!IsTargetValid(other.gameObject))
                 return;
             
             if (!other.TryGetComponent(out IDamageable damageable))

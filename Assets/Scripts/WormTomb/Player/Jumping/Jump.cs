@@ -20,7 +20,7 @@ namespace WormTomb.Player.Jumping
 
         private void OnJoystickUp()
         {
-            if (GroundCheck.Instance.IsTouchingGround())
+            if (Player.Instance.GroundCheck.IsTouchingGround())
                 ExecuteJump();
         }
 
@@ -28,11 +28,11 @@ namespace WormTomb.Player.Jumping
         {
             SubscribeToJoystickEvents();
         }
-
+        
         private void SubscribeToJoystickEvents()
         {
             PlayerInput.Instance.joystickUp.AddListener(OnJoystickUp);
-            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundStateChanged);
+            Player.Instance.GroundCheck.GroundStateChanged.AddListener(OnGroundStateChanged);
         }
 
         private void OnGroundStateChanged(bool isGrounded)

@@ -7,6 +7,6 @@ namespace WormTomb.Animation
     [CreateAssetMenu(menuName = MENU + NAME, fileName = NAME)]
     public class SpriteState : State<SpriteFrame, Sprite>
     {
-        public const string NAME = nameof(SpriteState);
+        private const string NAME = nameof(SpriteState);
     }
 }

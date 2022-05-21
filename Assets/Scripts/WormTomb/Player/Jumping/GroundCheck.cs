@@ -3,7 +3,7 @@ using WormTomb.General;
 
 namespace WormTomb.Player.Jumping
 {
-    public class GroundCheck : Singleton<GroundCheck>
+    public class GroundCheck : MonoBehaviour
     {
         public readonly BoolEvent GroundStateChanged = new BoolEvent();
 

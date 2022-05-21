@@ -20,13 +20,13 @@ namespace WormTomb.Player.Jumping
 
         private void SubscribeToEvents()
         {
-            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            Player.Instance.GroundCheck.GroundStateChanged.AddListener(OnGroundedStateChanged);
             PlayerInput.Instance.joystickUp.AddListener(OnJump);
         }
 
         public void OnJump()
         {
-            if (jump.IsJumping || GroundCheck.Instance.IsTouchingGround() || !isCoyoteTimeActive)
+            if (jump.IsJumping || Player.Instance.GroundCheck.IsTouchingGround() || !isCoyoteTimeActive)
                 return;
 
             isCoyoteTimeActive = false;

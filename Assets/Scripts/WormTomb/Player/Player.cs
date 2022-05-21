@@ -1,9 +1,11 @@
 using UnityEngine;
 using WormTomb.General;
+using WormTomb.Player.Jumping;
 
 namespace WormTomb.Player
 {
     [RequireComponent(typeof(PlayerHealth))]
+    [RequireComponent(typeof(GroundCheck))]
     public class Player : Singleton<Player>
     {
         private const string PlayerLayerName = "Player";
@@ -27,6 +29,19 @@ namespace WormTomb.Player
         }
 
         private Transform t;
+
+        public GroundCheck GroundCheck
+        {
+            get
+            {
+                if (groundCheck == null)
+                    groundCheck = GetComponent<GroundCheck>();
+
+                return groundCheck;
+            }
+        }
+
+        private GroundCheck groundCheck;
 
         private PlayerHealth PlayerHealth
         {

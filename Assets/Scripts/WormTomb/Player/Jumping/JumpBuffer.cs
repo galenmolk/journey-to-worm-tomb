@@ -20,7 +20,7 @@ namespace WormTomb.Player.Jumping
 
         private void SubscribeToEvents()
         {
-            GroundCheck.Instance.GroundStateChanged.AddListener(OnGroundedStateChanged);
+            Player.Instance.GroundCheck.GroundStateChanged.AddListener(OnGroundedStateChanged);
             PlayerInput.Instance.joystickUp.AddListener(OnJump);
         }
         
@@ -29,7 +29,7 @@ namespace WormTomb.Player.Jumping
             if (bufferCoroutine != null)
                 StopCoroutine(bufferCoroutine);
 
-            if (GroundCheck.Instance.IsTouchingGround())
+            if (Player.Instance.GroundCheck.IsTouchingGround())
                 return;
 
             bufferCoroutine = StartCoroutine(StartJumpBuffer());

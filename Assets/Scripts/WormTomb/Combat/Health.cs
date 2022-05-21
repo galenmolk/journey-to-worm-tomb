@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -52,16 +53,13 @@ namespace WormTomb.Combat
         
         private void SetHealth(int value)
         {
-            if (value == CurrentHealth)
-                return;
-
             if (CurrentHealth > value)
                 ModifyHealth(-(CurrentHealth - value));
             else
                 ModifyHealth(value - CurrentHealth);
         }
-        
-        private void Awake()
+
+        private void Start()
         {
             Restore();
         }

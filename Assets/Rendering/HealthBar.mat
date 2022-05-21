@@ -28,7 +28,7 @@ Material:
     - _BorderWidth: 0.1
     - _BorderWidthX: 0.029
     - _BorderWidthY: 0.12
-    - _Health: 0.6
+    - _Health: 0.8
     m_Colors:
     - _BackgroundColor: {r: 0.7169812, g: 0.26717696, b: 0.26717696, a: 0.7372549}
     - _FillColor: {r: 0.3077878, g: 0.5754717, b: 0.15472588, a: 0.7921569}

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using WormTomb.Player;
 
 namespace WormTomb.UI
 {
@@ -13,7 +12,7 @@ namespace WormTomb.UI
 
         private void Awake()
         {
-            maxHealth = Player.Player.Instance.StartingHealth;
+            maxHealth = Player.Instance.StartingHealth;
         }
 
         private void OnEnable()

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using WormTomb.General;
 
 namespace WormTomb.Animation
@@ -8,62 +9,84 @@ namespace WormTomb.Animation
         where TState : State<TFrame, TValue>
         where TFrame : Frame<TValue>
     {
-        [SerializeField, Min(0f)] protected float frameDelay = 0.2f;
+        // [SerializeField, Min(0f)] protected float frameDelay = 0.2f;
+        [SerializeField] private UnityEvent<TValue> onFrameApplied;
+        
+        [Tooltip("Optional: state to play on Awake.")]
+        [SerializeField] private TState startingState;
 
-        private TState activeState;
+        public int ActiveStateId => ActiveState != null ? ActiveState.Id : 0;
+        
+        public TState ActiveState { get; private set; }
 
         public void Enter(TState state)
         {
             Stop();
-            activeState = state;
-            activeState.ResetState();
-            ApplyFrame(activeState.AdvanceFrame());
+            ActiveState = state;
+            ActiveState.ResetState();
+            ApplyFrame(ActiveState.AdvanceFrame());
         }
         
         public void Play(TState state)
         {
+            if (ActiveStateId == state.Id)
+                return;
+
             Stop();
-            activeState = state;
-            activeState.ResetState();
-            activeState.Routine = StartCoroutine(Animate());
+            ActiveState = state;
+            ActiveState.ResetState();
+            ActiveState.Routine = StartCoroutine(Animate());
         }
         
         public void Stop()
         {
-            if (activeState == null)
+            if (ActiveState == null || ActiveState.Routine == null)
                 return;
             
-            StopCoroutine(activeState.Routine);
-            activeState.ResetState();
-            activeState = null;
+            StopCoroutine(ActiveState.Routine);
+            ActiveState.ResetState();
+            ActiveState.IsPlaying = false;
+            ActiveState = null;
         }
         
         public void Resume()
         {
-            if (activeState != null && activeState.Routine == null) 
-                activeState.Routine = StartCoroutine(Animate());
+            if (ActiveState != null && ActiveState.Routine == null) 
+                ActiveState.Routine = StartCoroutine(Animate());
         }
         
         public void Pause()
         {
-            if (activeState == null || activeState.Routine == null) 
+            if (ActiveState == null || ActiveState.Routine == null) 
                 return;
             
-            StopCoroutine(activeState.Routine);
-            activeState.Routine = null;
+            StopCoroutine(ActiveState.Routine);
+            ActiveState.IsPlaying = false;
+            ActiveState.Routine = null;
         }
 
         private IEnumerator Animate()
         {
-            while (activeState.CanAdvanceFrame() && activeState != null)
+            ActiveState.IsPlaying = true;
+            
+            while (ActiveState.CanAdvanceFrame() && ActiveState != null)
             {
-                ApplyFrame(activeState.AdvanceFrame());
-                yield return YieldRegistry.WaitForSeconds(frameDelay);
+                ApplyFrame(ActiveState.AdvanceFrame());
+                yield return YieldRegistry.WaitForSeconds(ActiveState.FrameDelay);
             }
 
             Stop();
         }
 
-        protected abstract void ApplyFrame(TFrame frame);
+        private void ApplyFrame(TFrame frame)
+        {
+            onFrameApplied?.Invoke(frame.Value);
+        }
+
+        private void Start()
+        {
+            if (startingState != null)
+                Play(startingState);
+        }
     }
 }

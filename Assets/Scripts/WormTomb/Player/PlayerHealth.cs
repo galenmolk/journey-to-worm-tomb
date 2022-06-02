@@ -1,7 +1,7 @@
 using UnityEngine;
 using WormTomb.Combat;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
     public class PlayerHealth : Health
     {

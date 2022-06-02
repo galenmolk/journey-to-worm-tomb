@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 using WormTomb.General;
 using WormTomb.Utils;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class RigidbodyController : MonoBehaviour
     {
+        public event Action<float> OnHorizontalVelocityChanged;
         public Vector2Event OnVelocityChanged = new();
 
         public float VelocityX => RB.velocity.x;
@@ -18,6 +20,7 @@ namespace WormTomb.Player
         public void SetHorizontalVelocity(float x)
         {
             SetVelocity(new Vector2(x, RB.velocity.y));
+            OnHorizontalVelocityChanged?.Invoke(x);
         }
 
         public void SetVerticalVelocity(float y)
@@ -38,7 +41,7 @@ namespace WormTomb.Player
         private void SetVelocity(Vector2 velocity)
         {
             RB.velocity = velocity;
-            OnVelocityChanged.Invoke(velocity);
+            // OnVelocityChanged.Invoke(velocity);
         }
 
         private void Awake()
@@ -49,6 +52,7 @@ namespace WormTomb.Player
         private void OnDisable()
         {
             OnVelocityChanged.RemoveAllListeners();
+            OnHorizontalVelocityChanged = null;
         }
     }
 }

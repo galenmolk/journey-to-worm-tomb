@@ -3,7 +3,7 @@ using UnityEngine;
 using WormTomb.Environment;
 using WormTomb.UI;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
     public class PlayerClimb : MonoBehaviour
     {
@@ -12,12 +12,6 @@ namespace WormTomb.Player
         [SerializeField] private float climbSpeed;
 
         private bool isClimbing;
-        
-        private void Update()
-        {
-            if (IsTouchingClimbable)
-                Debug.Log("isTouchingClimbable");
-        }
 
         private void OnEnable()
         {

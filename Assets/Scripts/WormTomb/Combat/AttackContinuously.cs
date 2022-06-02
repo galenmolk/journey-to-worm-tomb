@@ -1,23 +1,27 @@
-using System.Collections;
 using UnityEngine;
+using WormTomb.Combat;
 using WormTomb.General;
 using WormTomb.Utils;
 
-namespace WormTomb.Combat
+namespace WormTomb.Enemies
 {
     [RequireComponent(typeof(Attack))]
-    public class AttackContinuously : MonoBehaviour
+    public class AttackContinuously : MonoBehaviour, IUpdatable
     {
-        [SerializeField] private float updateFrequency = 0.2f;
+        public bool AlwaysUpdate => false;
+        
+        [SerializeField] private float attackFrequency = 0.2f;
+        [SerializeField] private DistanceToPlayer distanceToPlayer;
         
         private Attack _attack;
 
         private bool isAttacking;
-
+        private float timeSinceLastAttack;
+        
         private void StartAttacking()
         {
             isAttacking = true;
-            StartCoroutine(AttackCoroutine());
+            timeSinceLastAttack = Time.time;
         }
 
         public void StopAttacking()
@@ -25,24 +29,48 @@ namespace WormTomb.Combat
             isAttacking = false;
         }
 
-        private IEnumerator AttackCoroutine()
+        public void ExecuteUpdate()
         {
-            while (isAttacking)
+            CheckAttackDistance();
+
+            if (isAttacking)
+                TryAttack();
+        }
+
+        public void StartTryAttacking()
+        {
+            UpdateManager.AddUpdatable(this);
+        }
+        
+        public void StopTryAttacking()
+        {
+            UpdateManager.RemoveUpdatable(this);
+        }
+
+        private void CheckAttackDistance()
+        {
+            var isWithinRange = distanceToPlayer.Distance <= _attack.EquippedWeapon.Range;
+
+            switch (isWithinRange)
             {
-                _attack.TryAttack();
-                yield return YieldRegistry.WaitForSeconds(updateFrequency);
+                case true when !isAttacking:
+                    StartAttacking();
+                    break;
+                case false when isAttacking:
+                    StopAttacking();
+                    break;
             }
         }
 
-        private void Update()
+        private void TryAttack()
         {
-            var isWithinRange = transform.position.WithinRangeOfPlayer(_attack.EquippedWeapon.Range);
-            if (isWithinRange)
-                StartAttacking();
-            else
-                StopAttacking();
+            if (!(Time.time - timeSinceLastAttack >= attackFrequency)) 
+                return;
+            
+            _attack.TryAttack();
+            timeSinceLastAttack = Time.time;
         }
-
+        
         private void Awake()
         {
             _attack = GetComponent<Attack>();

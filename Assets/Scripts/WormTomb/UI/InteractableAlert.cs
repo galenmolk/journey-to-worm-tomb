@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using WormTomb.Player;
 
 namespace WormTomb.UI
 {

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using WormTomb.UI;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
     public class Run : MonoBehaviour
     {

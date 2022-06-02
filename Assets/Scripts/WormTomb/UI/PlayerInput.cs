@@ -1,8 +1,9 @@
 using System.Collections;
+using MolkExtras;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using WormTomb.General;
+using YieldRegistry = WormTomb.General.YieldRegistry;
 
 namespace WormTomb.UI
 {

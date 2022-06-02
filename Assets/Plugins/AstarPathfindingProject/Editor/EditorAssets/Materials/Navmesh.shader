@@ -40,7 +40,7 @@ SubShader {
 		float4 _Color;
 		float4 _FadeColor;
 
-		struct v2f {
+		struct Interpolators {
 			float4  pos : SV_POSITION;
 			float2  uv : TEXCOORD0;
 			float4 col : COLOR;
@@ -48,8 +48,8 @@ SubShader {
 
 		float4 _MainTex_ST;
 
-		v2f vert (appdata_color v) {
-			v2f o;
+		Interpolators vert (appdata_color v) {
+			Interpolators o;
 			o.pos = UnityObjectToClipPos (v.vertex);
 
 			float4 worldSpace = mul (unity_ObjectToWorld, v.vertex);
@@ -61,7 +61,7 @@ SubShader {
 			return o;
 		}
 
-		float4 frag (v2f i) : COLOR {
+		float4 frag (Interpolators i) : COLOR {
 			return tex2D (_MainTex, i.uv) * i.col;
 		}
 		ENDCG
@@ -84,15 +84,15 @@ SubShader {
 		sampler2D _MainTex;
 		float _Scale;
 
-		struct v2f {
+		struct Interpolators {
 			float4  pos : SV_POSITION;
 			float2  uv : TEXCOORD0;
 			float4 col : COLOR;
 		};
 
-		v2f vert (appdata_color v)
+		Interpolators vert (appdata_color v)
 		{
-			v2f o;
+			Interpolators o;
 			o.pos = UnityObjectToClipPos (v.vertex);
 
 			float4 worldSpace = mul (unity_ObjectToWorld, v.vertex);
@@ -104,7 +104,7 @@ SubShader {
 			return o;
 		}
 
-		float4 frag (v2f i) : COLOR
+		float4 frag (Interpolators i) : COLOR
 		{
 			return tex2D (_MainTex, i.uv) * i.col;
 		}

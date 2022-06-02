@@ -513,8 +513,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9731a5932b324e228a77bdac400766ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameDelay: 0.2
-  spriteRenderer: {fileID: 8027615802228076973}
+  frameDelay: 0.15
+  onFrameApplied:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8027615802228076973}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_sprite
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  startingState: {fileID: 0}
   run: {fileID: 11400000, guid: 4dbccf5e32eff4e4289385bd73616bae, type: 2}
 --- !u!1001 &8323721893483531286
 PrefabInstance:

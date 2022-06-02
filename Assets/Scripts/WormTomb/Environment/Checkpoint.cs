@@ -8,6 +8,7 @@ namespace WormTomb.Environment
 
         protected override void TriggerEntered()
         {
+            base.TriggerEntered();
             CurrentCheckpoint = this;
         }
 

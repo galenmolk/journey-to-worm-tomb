@@ -315,6 +315,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2786097422692717270}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   startingHealth: 3
 --- !u!1 &2786097422716915724
 GameObject:
@@ -325,8 +337,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2786097422716915725}
-  - component: {fileID: 2786097422716915727}
   - component: {fileID: 2786097422716915726}
+  - component: {fileID: 3776124285148459148}
   m_Layer: 7
   m_Name: DetectPlayer
   m_TagString: Untagged
@@ -349,48 +361,6 @@ Transform:
   m_Father: {fileID: 2786097422692717271}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2786097422716915727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2786097422716915724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 570e36640a32247c1ad705065c0a3f1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowMultipleTriggers: 0
-  hideGraphics: 1
-  coll: {fileID: 0}
-  PlayerDetected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2786097423895129038}
-        m_TargetAssemblyTypeName: WormTomb.MoveTowardsPlayer, Assembly-CSharp
-        m_MethodName: StartPursuing
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2786097423895129047}
-        m_TargetAssemblyTypeName: WormTomb.FacePlayer, Assembly-CSharp
-        m_MethodName: StartFacingPlayer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!58 &2786097422716915726
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -407,6 +377,49 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 9.22
+--- !u!114 &3776124285148459148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786097422716915724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706a477a1afa74e20a2e370ad280cb70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowMultipleTriggers: 0
+  hideGraphics: 1
+  coll: {fileID: 0}
+  triggerEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2786097423895129038}
+        m_TargetAssemblyTypeName: WormTomb.Enemies.MoveTowardsPlayer, Assembly-CSharp
+        m_MethodName: StartPursuing
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2786097423895129047}
+        m_TargetAssemblyTypeName: WormTomb.Enemies.FacePlayer, Assembly-CSharp
+        m_MethodName: StartFacingPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerDelay: 0
 --- !u!1 &2786097423671057398
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
+using MolkExtras;
 using UnityEngine;
 using WormTomb.General;
-using WormTomb.Utils;
 
 namespace WormTomb
 {

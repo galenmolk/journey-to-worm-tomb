@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using WormTomb.Environment;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
     public class Respawn : MonoBehaviour
     {

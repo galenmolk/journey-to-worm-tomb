@@ -1,15 +1,21 @@
+using MolkExtras;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace WormTomb.General
 {
     [RequireComponent(typeof(Collider2D))]
-    public abstract class Trigger : MonoBehaviour
+    public class Trigger : MonoBehaviour
     {
         [SerializeField] protected bool allowMultipleTriggers = false;
         [SerializeField] private bool hideGraphics = true;
 
         [SerializeField] private Collider2D coll;
 
+        [SerializeField] private UnityEvent triggerEntered;
+
+        [SerializeField, Min(0f)] private float triggerDelay = 0f;
+        
         private void Awake()
         {
             if (hideGraphics)
@@ -40,15 +46,21 @@ namespace WormTomb.General
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.layer != Player.Player.Instance.PlayerLayer)
+            if (collision.gameObject.layer != Player.Instance.PlayerLayer)
                 return;
 
             if (!allowMultipleTriggers)
                 coll.enabled = false;
 
-            TriggerEntered();
+            if (triggerDelay == 0)
+                TriggerEntered();
+            else
+                this.ExecuteAfterDelay(triggerDelay, TriggerEntered);
         }
 
-        protected abstract void TriggerEntered();
+        protected virtual void TriggerEntered()
+        {
+            triggerEntered?.Invoke();
+        }
     }
 }

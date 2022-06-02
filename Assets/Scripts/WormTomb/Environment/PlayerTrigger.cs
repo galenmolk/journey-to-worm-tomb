@@ -19,7 +19,7 @@ namespace WormTomb.Environment
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer != Player.Player.Instance.PlayerLayer)
+            if (other.gameObject.layer != Player.Instance.PlayerLayer)
                 return;
 
             Triggered();

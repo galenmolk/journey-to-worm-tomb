@@ -11,13 +11,13 @@ namespace WormTomb.Enemies
         
         private void OnCollisionEnter2D(Collision2D col)
         {
-            if (col.gameObject.layer == Player.Player.Instance.PlayerLayer)
+            if (col.gameObject.layer == Player.Instance.PlayerLayer)
                 _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
         private void OnCollisionExit2D(Collision2D col)
         {
-            if (col.gameObject.layer == Player.Player.Instance.PlayerLayer)
+            if (col.gameObject.layer == Player.Instance.PlayerLayer)
                 _rigidbody2D.constraints = defaultConstraints;
         }
 

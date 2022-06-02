@@ -11,13 +11,14 @@ namespace WormTomb.Environment
 
         protected override void TriggerEntered()
         {
+            base.TriggerEntered();
             StartCoroutine(Teleport());
         }
 
         private IEnumerator Teleport()
         {
             yield return YieldRegistry.WaitForSeconds(delay);
-            Player.Player.Instance.transform.position = destination.position;
+            Player.Instance.transform.position = destination.position;
         }
     }
 }

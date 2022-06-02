@@ -18,7 +18,6 @@ namespace WormTomb.Combat
             if (!EquippedWeapon.CanAttack()) 
                 return;
 
-            Debug.Log("AttackWithWeapon");
             onAttack.Invoke();
             EquippedWeapon.AttackWithWeapon();
         }

@@ -29,7 +29,7 @@ namespace WormTomb.Enemies
         {
             while (shouldFacePlayer)
             {
-                _setFacing.SetFacingFromTarget(Player.Player.Instance.Transform.position);
+                _setFacing.SetFacingFromTarget(Player.Instance.Transform.position);
                 yield return YieldRegistry.WaitForSeconds(updateFrequency);
             }
         }

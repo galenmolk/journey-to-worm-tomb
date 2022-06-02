@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 using WormTomb.Enemies.Pathfinding;
 using WormTomb.General;
-using WormTomb.Player;
 using WormTomb.Utils;
 
 namespace WormTomb.Enemies
 {
     [RequireComponent(typeof(Seeker))]
     [RequireComponent(typeof(RigidbodyController))]
-    public class MoveTowardsPlayer : MonoBehaviour
+    public class MoveTowardsPlayer : MonoBehaviour, IUpdatable
     {
+        public bool AlwaysUpdate => false;
+        
         [SerializeField] private UnityEvent OnPlayerInRange = new UnityEvent();
         [SerializeField] private UnityEvent OnPlayerOutOfRange = new UnityEvent();
         
@@ -37,10 +38,12 @@ namespace WormTomb.Enemies
         {
             SeekerManager.StartSeeking(seeker, properties);
             isPursuing = true;
+            UpdateManager.AddUpdatable(this);
         }
 
         public void StopPursuing()
         {
+            UpdateManager.RemoveUpdatable(this);
             isPursuing = false;
             SeekerManager.StopSeeking(seeker);
         }
@@ -51,7 +54,9 @@ namespace WormTomb.Enemies
             {
                 if (ReachedEndOfPath() || ReachedPlayer())
                 {
-                    rigidbodyController.SetHorizontalVelocity(0f);
+                    if (Mathf.Abs(rigidbodyController.VelocityX) > 0f)
+                            rigidbodyController.SetHorizontalVelocity(0f);
+                    
                     yield return YieldRegistry.waitForFixedUpdate;
                     continue;
                 }
@@ -91,13 +96,18 @@ namespace WormTomb.Enemies
         private void Awake()
         {
             CacheComponents();
-            properties = new SeekerProperties(rigidbodyController, Player.Player.Instance.Transform, OnPathReady, pathRepeatRate);
+            properties = new SeekerProperties(rigidbodyController, Player.Instance.Transform, OnPathReady, pathRepeatRate);
         }
 
         private void CacheComponents()
         {
             seeker = GetComponent<Seeker>();
             rigidbodyController = GetComponent<RigidbodyController>();
+        }
+
+        public void ExecuteUpdate()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

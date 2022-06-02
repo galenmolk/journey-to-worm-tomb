@@ -2,7 +2,7 @@ using UnityEngine;
 using WormTomb.Combat;
 using WormTomb.UI;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
     public class PlayerAction : MonoBehaviour
     {

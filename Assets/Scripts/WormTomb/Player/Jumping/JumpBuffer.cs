@@ -3,7 +3,7 @@ using UnityEngine;
 using WormTomb.General;
 using WormTomb.UI;
 
-namespace WormTomb.Player.Jumping
+namespace WormTomb
 {
     public class JumpBuffer : MonoBehaviour
     {

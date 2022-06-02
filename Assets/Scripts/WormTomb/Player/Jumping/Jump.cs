@@ -1,7 +1,7 @@
 using UnityEngine;
 using WormTomb.UI;
 
-namespace WormTomb.Player.Jumping
+namespace WormTomb
 {
     public class Jump : MonoBehaviour
     {

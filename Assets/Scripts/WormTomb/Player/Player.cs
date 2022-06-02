@@ -1,8 +1,7 @@
+using MolkExtras;
 using UnityEngine;
-using WormTomb.General;
-using WormTomb.Player.Jumping;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
     [RequireComponent(typeof(PlayerHealth))]
     [RequireComponent(typeof(GroundCheck))]
@@ -13,6 +12,8 @@ namespace WormTomb.Player
         public int PlayerLayer { get; private set; }
 
         public int StartingHealth => PlayerHealth.StartingHealth;
+
+        public bool HasXVelocity => Mathf.Abs(rigidbodyController.VelocityX) > 0;
         
         public RigidbodyController RB => rigidbodyController;
         [SerializeField] private RigidbodyController rigidbodyController;

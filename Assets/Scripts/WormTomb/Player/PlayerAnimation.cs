@@ -1,29 +1,43 @@
+using System;
 using UnityEngine;
+using WormTomb.Animation;
 
-namespace WormTomb.Player
+namespace WormTomb
 {
-    public class PlayerAnimation : MonoBehaviour
+    public class PlayerAnimation : SpriteAnimator
     {
-        [SerializeField] private Animator animator;
+        [SerializeField] private SpriteState run;
 
         private void Start()
         {
-            SetIsRunning(false);
+            Enter(run);
         }
 
         private void OnEnable()
         {
-            Player.Instance.RB.OnVelocityChanged.AddListener(OnVelocityChanged);
+            Player.Instance.RB.OnHorizontalVelocityChanged += HandleHorizontalVelocityChanged;
+            Player.Instance.GroundCheck.GroundStateChanged.AddListener(OnGroundStateChanged);
         }
 
-        private void SetIsRunning(bool isRunning)
+        private void OnDisable()
         {
-            animator.speed = isRunning ? 1f : 0f;
+            Player.Instance.RB.OnHorizontalVelocityChanged -= HandleHorizontalVelocityChanged;
         }
 
-        private void OnVelocityChanged(Vector2 velocity)
+        private void OnGroundStateChanged(bool isTouchingGround)
         {
-            SetIsRunning(Mathf.Abs(velocity.x) > 0f);
+            if (!isTouchingGround)
+                Pause();
+            else if (Player.Instance.HasXVelocity)
+                Resume();
+        }
+        
+        private void HandleHorizontalVelocityChanged(float x)
+        {
+            if (Mathf.Abs(x) > 0f && Player.Instance.GroundCheck.IsTouchingGround())
+                Resume();
+            else
+                Pause();
         }
     }
 }

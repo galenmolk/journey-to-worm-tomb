@@ -35,7 +35,6 @@ namespace WormTomb.Combat
 
         private void TryDealDamage()
         {
-            Debug.Log("TryDealDamage. Target: " + activeTarget);
             if (activeTarget == null)
                 return;
             
@@ -45,21 +44,12 @@ namespace WormTomb.Combat
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("layer: " + other.gameObject.layer);
-
             if (!IsTargetValid(other.gameObject))
-            {
-                Debug.Log("layer is ignored");
                 return;
-            }
             
             if (!other.TryGetComponent(out IDamageable damageable))
-            {
-                Debug.Log("No Damageable Component on GameObject: "+ other.name);
                 return;
-            }
 
-            Debug.Log("Setting Active Target: " + other.gameObject.name);
             activeTarget = damageable;
         }
 
@@ -74,7 +64,6 @@ namespace WormTomb.Combat
             if (damageable != activeTarget)
                 return;
             
-            Debug.Log("Clearing active target");
             activeTarget = null;
         }
     }

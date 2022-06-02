@@ -1,7 +1,7 @@
 using UnityEngine;
 using WormTomb.General;
 
-namespace WormTomb.Player.Jumping
+namespace WormTomb
 {
     public class GroundCheck : MonoBehaviour
     {

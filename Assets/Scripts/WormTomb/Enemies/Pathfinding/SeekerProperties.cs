@@ -1,6 +1,5 @@
 using Pathfinding;
 using UnityEngine;
-using WormTomb.Player;
 
 namespace WormTomb.Enemies.Pathfinding
 {

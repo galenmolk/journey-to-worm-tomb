@@ -35,7 +35,7 @@ namespace WormTomb.General
             
         }
         
-        private static void Add
+        // private static void Add
         
         private void Awake()
         {

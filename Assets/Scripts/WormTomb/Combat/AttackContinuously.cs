@@ -9,7 +9,8 @@ namespace WormTomb.Enemies
     public class AttackContinuously : MonoBehaviour, IUpdatable
     {
         public bool AlwaysUpdate => false;
-        
+        public IUpdatable.Type UpdateType { get; }
+
         [SerializeField] private float attackFrequency = 0.2f;
         [SerializeField] private DistanceToPlayer distanceToPlayer;
         

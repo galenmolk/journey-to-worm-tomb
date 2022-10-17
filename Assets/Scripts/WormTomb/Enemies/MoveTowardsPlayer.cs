@@ -13,7 +13,8 @@ namespace WormTomb.Enemies
     public class MoveTowardsPlayer : MonoBehaviour, IUpdatable
     {
         public bool AlwaysUpdate => false;
-        
+        public IUpdatable.Type UpdateType { get; }
+
         [SerializeField] private UnityEvent OnPlayerInRange = new UnityEvent();
         [SerializeField] private UnityEvent OnPlayerOutOfRange = new UnityEvent();
         

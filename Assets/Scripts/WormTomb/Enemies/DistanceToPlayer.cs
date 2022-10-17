@@ -22,6 +22,7 @@ namespace WormTomb.Enemies
         }
 
         public bool AlwaysUpdate => false;
+        public IUpdatable.Type UpdateType { get; }
 
         public void StartTracking()
         {
